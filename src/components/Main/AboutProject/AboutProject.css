@@ -1,0 +1,24 @@
+.about-project {
+    margin: 0 auto;
+    padding: 0;
+    background-color: white;
+}
+
+.about-project__heading {
+    margin: 0;
+    margin-top: 110px;
+    font-size: 22px;
+    line-height: 122%;
+    min-width: 1140px;
+    border-bottom: 1px solid black;
+}
+
+/* .about-project__title
+
+.about-project__paragraph
+
+.about-project__process
+
+.about-project__process-scale
+
+.about-project__process-text */

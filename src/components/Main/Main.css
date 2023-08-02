@@ -1,0 +1,14 @@
+.main {
+    margin: 0 auto;
+    width: 100%;
+}
+.main__heading {
+    margin: 0 auto;
+    padding: 0;
+    padding-bottom: 23px;
+    font-size: 22px;
+    line-height: 122%;
+    font-weight: 400;
+    max-width: 1140px;
+    border-bottom: 1px solid black;
+}

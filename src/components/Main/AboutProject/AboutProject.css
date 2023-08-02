@@ -1,27 +1,17 @@
 .about-project {
     margin: 0 auto;
     padding: 0;
+    padding-top: 110px;
     background-color: white;
-    justify-items: center;
+    justify-items: center;    
+    max-width: 1140px;
 }
 
-.about-project__heading {
-    margin: 0 auto;
-    margin-top: 110px;
-    margin-bottom: 23px;
-    font-size: 22px;
-    line-height: 122%;
-    font-weight: 400;
-    max-width: 1140px;
-    
-}
 
 .about-project__table {
     margin: 0 auto;
     display: flex;
-    max-width: 1140px;
     gap: 40px;
-    border-top: 1px solid black;
 }
 
 .about-project__table-title {
@@ -48,7 +38,6 @@
     grid-template-columns: 1fr 4fr;
     grid-template-rows: repeat(2, 36px);
     align-items: center;
-    max-width: 1140px;
 }
 
 .about-project__process-scale {

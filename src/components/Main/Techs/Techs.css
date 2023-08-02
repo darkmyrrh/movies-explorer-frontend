@@ -46,4 +46,7 @@
     letter-spacing: -4%;
     line-height: 121%;
     border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
 }

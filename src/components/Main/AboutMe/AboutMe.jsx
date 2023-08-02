@@ -15,7 +15,12 @@ function AboutMe() {
         фронтендом. А еще я люблю читать, путешествовать и изучать новые
         технологии.
       </p>
-      <a href="https://github.com/darkmyrrh/" className="about-me__link">
+      <a
+        href="https://github.com/darkmyrrh/"
+        className="about-me__link"
+        target="_blank"
+        rel="noreferrer"
+      >
         Github
       </a>
     </section>

@@ -2,12 +2,13 @@ import './SavedMovies.css'
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies ({ savedMoviesList }) {
+function SavedMovies ({ savedMoviesList, onDeleteClick }) {
     return (
         <main className='saved-movies'>
             <SearchForm />
             <MoviesCardList
-            cards={savedMoviesList} />
+            cards={savedMoviesList}
+            onDeleteClick={onDeleteClick} />
         </main>
     )
 }

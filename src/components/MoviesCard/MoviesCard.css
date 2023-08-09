@@ -51,6 +51,24 @@
     background: url(../../images/like-active.svg);
 }
 
+.movies-card__delete-button {
+    margin: 10px 0 0;
+    opacity: 0;
+    background: url(../../images/delete-button.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s linear;
+}
+
+.movies-card__delete-button:hover {
+    opacity: 1;
+}
+
 .movies-card__duration {
     margin: 0;
     padding: 6px 0 0;

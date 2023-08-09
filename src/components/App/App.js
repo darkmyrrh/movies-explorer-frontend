@@ -10,23 +10,29 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import MoviesList from "../utils/MoviesList";
 
-
-
 function App() {
  const SavedMoviesList = [];
-
+ const [savedMovies, setSavedMovies] = useState([]);
  function handleLikeButtonClick(card) {
   const isLiked = SavedMoviesList.find(val => val.name === card.name);
     if (!isLiked) {
       SavedMoviesList.push(card);
+      console.log(SavedMoviesList);
+      localStorage.setItem('savedMovies', JSON.stringify(SavedMoviesList));
+      setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')))
     }
     else {
-      SavedMoviesList.pop(card);
+      handleDeleteClick(card);
     }
-    localStorage.setItem('savedMovies', JSON.stringify(SavedMoviesList));
+    
   }
 
-const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));  
+  function handleDeleteClick(card) {
+    const updatedSavedMoviesList = SavedMoviesList.filter((item) => item.name !== card.name);
+    setSavedMovies(updatedSavedMoviesList);
+  }
+
+  // setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
 
   return (
     <div className="App">
@@ -49,7 +55,8 @@ const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
               <Header />
               <Movies
               moviesList={MoviesList}
-              onLikeClick={handleLikeButtonClick} />
+              onLikeClick={handleLikeButtonClick}
+              />
               <Footer />
             </>
           }
@@ -61,6 +68,7 @@ const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
               <Header />
               <SavedMovies
               savedMoviesList={savedMovies}
+              onDeleteClick={handleDeleteClick} 
                />
               <Footer />
             </>

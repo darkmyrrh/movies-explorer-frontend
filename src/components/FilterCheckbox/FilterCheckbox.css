@@ -1,0 +1,58 @@
+.filter-checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.filter-checkbox__label {
+  margin: 33px auto 48px;
+  padding: 0;
+  font-size: 13px;
+  line-height: 138%;
+  font-weight: 400;
+  cursor: pointer;  
+}
+
+.filter-checkbox+.filter-checkbox__label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    
+  }
+  .filter-checkbox+.filter-checkbox__label::before {
+    content: '';
+    width: 36px;
+    height: 20px;
+    display: inline-block;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: none;
+    margin-right: 14px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url('../../images/checkbox-inactive.svg');
+    background-size: 100% 100%;
+  }
+
+  .filter-checkbox:checked+.filter-checkbox__label::before {
+    background-image: url('../../images/checkbox-active.svg');
+  }
+
+  /* стили при наведении курсора на checkbox */
+.filter-checkbox:not(:disabled):not(:checked)+.filter-checkbox__label:hover::before {
+    opacity: 0.7;
+  }
+  
+  /* стили для активного состояния чекбокса (при нажатии на него) */
+  .filter-checkbox:not(:disabled):active+.filter-checkbox__label::before {
+    background-image: url('../../images/checkbox-inactive.svg');
+  }
+  
+  /* стили для чекбокса, находящегося в фокусе и не находящегося в состоянии checked */
+  .filter-checkbox:focus:not(:checked)+.filter-checkbox__label::before {
+    background-image: url('../../images/checkbox-inactive.svg');
+  }
+  /* стили для чекбокса, находящегося в состоянии disabled */
+  .filter-checkbox:disabled+.filter-checkbox__label::before {
+    background-image: url('../../images/checkbox-inactive.svg');
+  }

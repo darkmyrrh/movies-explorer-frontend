@@ -1,0 +1,53 @@
+.profile {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+
+.profile__title {
+    margin: 74px auto 123px;
+    padding: 0;
+    font-size: 24px;
+    line-height: 121px;
+    font-weight: 500;
+}
+
+.profile__form {
+    margin: 0 auto;
+    max-width: 410px;    
+}
+
+.profile__label {
+    margin: 0 auto;
+    width: 100%;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.profile__input {
+    margin: 0 auto;
+    font-size: 11px;
+    color: black;
+    opacity: 1;
+}
+
+.profile__submit {
+    margin: 220px auto 0;
+    padding: 0;
+    font-size: 13px;
+    line-height: 123%;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.profile__exit {
+    margin: 16px auto 0;
+    padding: 0;
+    font-size: 13px;
+    line-height: 123%;
+    color: #FF3055;
+    border: none;
+    background: none;
+    cursor: pointer;
+}

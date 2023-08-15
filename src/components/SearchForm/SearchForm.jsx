@@ -8,7 +8,9 @@ function SearchForm (handleSubmit) {
             <input type="text" placeholder='Фильм' className='search-form__input' />
             <button type='submit' className='search-form__submit'>Найти</button>            
         </form>
-        <FilterCheckbox />
+        <FilterCheckbox
+        
+        />
         </>
     )
 }

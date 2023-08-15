@@ -1,0 +1,9 @@
+.login {
+    margin: 0 auto;
+    max-width: 396px;
+}
+@media all and (max-width: 472px) {
+    .login {
+        max-width: 260px;
+    }    
+}

@@ -8,9 +8,14 @@ import NotFound from "../NotFound/NotFound";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 import MoviesList from "../utils/MoviesList";
 
 function App() {
+ const [loggedIn, setLoggedIn] = useState(false);
+ const navigate = useNavigate();
+
  const SavedMoviesList = [];
  const [savedMovies, setSavedMovies] = useState([]);
  function handleLikeButtonClick(card) {
@@ -32,7 +37,15 @@ function App() {
     setSavedMovies(updatedSavedMoviesList);
   }
 
-  // setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
+  function handleRegister() {
+    navigate("/login", { replace: true });
+  }
+
+  function handleLogin () {
+    setLoggedIn(true);
+    navigate("/movies", { replace: true });
+  }
+
 
   return (
     <div className="App">
@@ -42,7 +55,7 @@ function App() {
           path="/"
           element={
             <>
-              <Header />
+              <Header loggedIn={true} />
               <Main />
               <Footer />
             </>
@@ -52,7 +65,7 @@ function App() {
           path="/movies"
           element={
             <>
-              <Header />
+              <Header loggedIn={true} />
               <Movies
               moviesList={MoviesList}
               onLikeClick={handleLikeButtonClick}
@@ -65,7 +78,7 @@ function App() {
           path="/saved-movies"
           element={
             <>
-              <Header />
+              <Header loggedIn={loggedIn} />
               <SavedMovies
               savedMoviesList={savedMovies}
               onDeleteClick={handleDeleteClick} 
@@ -79,8 +92,26 @@ function App() {
           path="/profile"
           element={
             <>
-              <Header />
+              <Header loggedIn={loggedIn} />
               <Profile />
+            </>
+            
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <>
+              <Register onRegister={handleRegister}/>
+            </>
+            
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <>
+              <Login onLogin={handleLogin} />
             </>
             
           }

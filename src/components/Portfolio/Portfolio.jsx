@@ -7,7 +7,7 @@ function Portfolio() {
       <ul className="potfolio__links">
         <a
           href="https://darkmyrrh.github.io/how-to-learn/"
-          className="portfolio__link"
+          className="portfolio__link app__link"
           target="_blank"
           rel="noreferrer"
         >
@@ -16,7 +16,7 @@ function Portfolio() {
         </a>
         <a
           href="https://darkmyrrh.github.io/russian-travel/"
-          className="portfolio__link"
+          className="portfolio__link app__link"
           target="_blank"
           rel="noreferrer"
         >
@@ -25,7 +25,7 @@ function Portfolio() {
         </a>
         <a
           href="https://mesto.myrrh.ru"
-          className="portfolio__link"
+          className="portfolio__link app__link"
           target="_blank"
           rel="noreferrer"
         >

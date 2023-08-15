@@ -1,7 +1,7 @@
 .portfolio {
     margin: 100px auto 125px;
     padding: 0;
-    max-width: 1140px;
+    width: 89%;
 }
 
 .portfolio__heading {
@@ -48,3 +48,27 @@
 .portfolio__link-text:last-child {
     margin-bottom: 0;
 }
+
+@media all and (max-width: 768px) {
+    .portfolio {
+        margin: 90px auto;
+    }
+    .portfolio__link-text {
+        font-size: 28px;
+        line-height: 178%;
+    }
+  }
+
+  @media all and (max-width: 400px) {
+    .portfolio {
+        margin: 70px auto;
+    }
+    .portfolio__heading {
+        font-size: 14px;
+        line-height: 143%;
+    }
+    .portfolio__link-text {
+        font-size: 18px;
+        line-height: 155%;
+    }
+  }

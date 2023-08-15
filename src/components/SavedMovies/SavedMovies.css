@@ -2,3 +2,15 @@
     margin: 0 auto;
     max-width: 1140px;
 }
+
+@media all and (max-width: 1279px) {
+    .saved-movies {
+        width: 89%;
+    }    
+}
+
+@media all and (max-width: 500px) {
+    .saved-movies {
+        width: 91%;
+    }    
+}

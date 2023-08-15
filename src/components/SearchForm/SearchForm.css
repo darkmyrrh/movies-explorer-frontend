@@ -6,19 +6,26 @@
     grid-template-columns: auto max-content;
 }
 
-.search-form__input {
+.search-form__input {    
     margin: 0 0 13px;
     padding: 0;
     font-size: 28px;
     line-height: 121%;
-    color: #A0A0A0;
-    opacity: 1;
     font-weight: 500;
     border: none;
     width: 93%;
 }
-.search-form__input::-moz-placeholder { opacity: 1; }
-.search-form__input::-webkit-input-placeholder { opacity: 1; }
+
+.search-form__input::placeholder {
+    -webkit-placeholder-opacity: 1;
+    -moz-placeholder-opacity: 1;
+    opacity: 1;
+    color: #A0A0A0;
+}
+
+.search-form__input:focus {    
+    outline: none;
+}
 
 .search-form__submit {
     margin: 0 0 21.35px 13px;

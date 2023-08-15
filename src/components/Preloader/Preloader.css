@@ -1,5 +1,4 @@
 .preloader {
-    width: 100%;
     margin: 0 auto;
     padding: 50px 0 80px;
     text-align: center;
@@ -15,4 +14,13 @@
     border: none;
     background-color: #F9F9F9;
     cursor: pointer;
+}
+
+@media all and (max-width: 765px) {
+    .preloader {
+        padding: 61px 0 89px;
+    }
+    .preloader__button {
+        min-width: 240px;
+    }
 }

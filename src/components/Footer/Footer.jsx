@@ -1,8 +1,8 @@
 import "./Footer.css";
 
-function Footer() {
+function Footer({ isVisible }) {
   return (
-    <footer className="footer">
+    <footer className={`footer ${isVisible ? "" : "footer_not-visible"}`}>
       <h2 className="footer__heading">
         Учебный проект Яндекс.Практикум х BeatFilm.
       </h2>

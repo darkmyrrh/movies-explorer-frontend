@@ -1,6 +1,6 @@
 .search-form {
-    margin: 0 auto;
-    padding: 70px 0 0;
+    margin: 70px auto 0;
+    padding: 0;
     border-bottom: 1px solid #E8E8E8;
     display: grid;
     grid-template-columns: auto max-content;
@@ -28,11 +28,11 @@
 }
 
 .search-form__submit {
-    margin: 0 0 21.35px 13px;
+    margin: 0 0 13px 21px;
     padding: 8px 0;
     background-color: #3456F3;
     font-size: 11px;
-    line-height: 164%;
+    line-height: 163%;
     color: white;
     border: none;
     border-radius: 48px;

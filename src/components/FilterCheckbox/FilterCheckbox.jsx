@@ -1,28 +1,19 @@
 import "./FilterCheckbox.css";
-import { useState } from "react";
 
 function FilterCheckbox() {
-
-    const [isEnabled, setIsEnabled] = useState(false);
-
-    const FilterCheckboxClassName = `filter-checkbox__button app__button ${
-        isEnabled && "filter-checkbox__button_enabled"
-      }`;
-
-      const onClickCheckbox = () => {
-        setIsEnabled(!isEnabled);
-      }
+ 
 
   return (
     <div className="filter-checkbox">
-      <button
-        type="button"
-        className={FilterCheckboxClassName}
-        onClick={onClickCheckbox}
+      <input
+        type="checkbox"
+        name="checkbox"
+        id="checkbox"
+        className="filter-checkbox__input app__button"
       />
-      <p className="filter-checkbox__text">
+      <label htmlFor="checkbox" className="filter-checkbox__text">
         Короткометражки
-      </p>
+      </label>
     </div>
   );
 }

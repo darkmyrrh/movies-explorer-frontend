@@ -1,14 +1,5 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/inter/inter.css);
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #FFFFFF;
-  font-family: 'Inter', 'Arial', sans-serif;
-  width: 100%;
-  color: #000000;
-  font-size:0;
-  line-height:0;
-}
+
 
 

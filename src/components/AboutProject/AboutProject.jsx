@@ -1,8 +1,9 @@
 import "./AboutProject.css";
 
-function AboutProject() {
+function AboutProject({ refProps }) {
+
   return (
-    <section className="about-project">
+    <section className="about-project" ref={refProps}>
       <h2 className="main__heading">О проекте</h2>
       <div className="about-project__table">
         <article>

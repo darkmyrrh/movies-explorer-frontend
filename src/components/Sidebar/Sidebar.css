@@ -10,7 +10,7 @@
     visibility: hidden;
     display: flex;
     justify-content: right;
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.4s ease-in;
 }
 .sidebar_opened {
     visibility: visible;

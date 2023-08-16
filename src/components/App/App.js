@@ -13,27 +13,31 @@ import Login from "../Login/Login";
 import MoviesList from "../utils/MoviesList";
 
 function App() {
- const [loggedIn, setLoggedIn] = useState(false);
- const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
- const SavedMoviesList = [];
- const [savedMovies, setSavedMovies] = useState([]);
- function handleLikeButtonClick(card) {
-  const isLiked = SavedMoviesList.find(val => val.name === card.name);
+  const SavedMoviesList = [];
+  const [savedMovies, setSavedMovies] = useState([]);
+
+  useEffect(() => {
+    setSavedMovies(JSON.parse(localStorage.getItem("savedMovies")));
+  }, []);
+
+  function handleLikeButtonClick(card) {
+    const isLiked = SavedMoviesList.find((val) => val.name === card.name);
     if (!isLiked) {
       SavedMoviesList.push(card);
       console.log(SavedMoviesList);
-      localStorage.setItem('savedMovies', JSON.stringify(SavedMoviesList));
-      setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')))
-    }
-    else {
+      localStorage.setItem("savedMovies", JSON.stringify(SavedMoviesList));
+    } else {
       handleDeleteClick(card);
     }
-    
   }
 
   function handleDeleteClick(card) {
-    const updatedSavedMoviesList = SavedMoviesList.filter((item) => item.name !== card.name);
+    const updatedSavedMoviesList = SavedMoviesList.filter(
+      (item) => item.name !== card.name
+    );
     setSavedMovies(updatedSavedMoviesList);
   }
 
@@ -41,23 +45,36 @@ function App() {
     navigate("/login", { replace: true });
   }
 
-  function handleLogin () {
+  function handleLogin() {
     setLoggedIn(true);
     navigate("/movies", { replace: true });
   }
 
+  function handleLogout() {
+    navigate("/", { replace: true });
+    setLoggedIn(false);
+  }
 
   return (
-    <div className="App">
+    <div className="app">
       <Routes>
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={
+            <>
+              <Header loggedIn={loggedIn} isVisible={false} />
+              <NotFound />
+              <Footer isVisible={false} />
+            </>
+          }
+        />
         <Route
           path="/"
           element={
             <>
-              <Header loggedIn={true} />
+              <Header loggedIn={loggedIn} isVisible={true} />
               <Main />
-              <Footer />
+              <Footer isVisible={true} />
             </>
           }
         />
@@ -65,12 +82,12 @@ function App() {
           path="/movies"
           element={
             <>
-              <Header loggedIn={true} />
+              <Header loggedIn={true} isVisible={true} />
               <Movies
-              moviesList={MoviesList}
-              onLikeClick={handleLikeButtonClick}
+                moviesList={MoviesList}
+                onLikeClick={handleLikeButtonClick}
               />
-              <Footer />
+              <Footer isVisible={true} />
             </>
           }
         />
@@ -78,42 +95,43 @@ function App() {
           path="/saved-movies"
           element={
             <>
-              <Header loggedIn={loggedIn} />
+              <Header loggedIn={true} isVisible={true} />
               <SavedMovies
-              savedMoviesList={savedMovies}
-              onDeleteClick={handleDeleteClick} 
-               />
-              <Footer />
+                savedMoviesList={savedMovies}
+                onDeleteClick={handleDeleteClick}
+              />
+              <Footer isVisible={true} />
             </>
-            
           }
         />
         <Route
           path="/profile"
           element={
             <>
-              <Header loggedIn={loggedIn} />
-              <Profile />
+              <Header loggedIn={true} isVisible={true} />
+              <Profile onExit={handleLogout} />
+              <Footer isVisible={false} />
             </>
-            
           }
         />
         <Route
           path="/register"
           element={
             <>
-              <Register onRegister={handleRegister}/>
+              <Header loggedIn={false} isVisible={false} />
+              <Register onRegister={handleRegister} />
+              <Footer isVisible={false} />
             </>
-            
           }
         />
         <Route
           path="/login"
           element={
             <>
+              <Header loggedIn={false} isVisible={false} />
               <Login onLogin={handleLogin} />
+              <Footer isVisible={false} />
             </>
-            
           }
         />
       </Routes>

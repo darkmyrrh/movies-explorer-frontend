@@ -1,3 +1,14 @@
+.app {
+  margin: 0;
+  padding: 0;
+  background-color: #FFFFFF;
+  font-family: 'Inter', 'Arial', sans-serif;
+  width: 100%;
+  color: #000000;
+  font-size:0;
+  line-height:0;
+}
+
 .app__link {
   transition: opacity 0.3s linear;
 }

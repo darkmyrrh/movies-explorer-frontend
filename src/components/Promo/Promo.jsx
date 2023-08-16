@@ -1,7 +1,13 @@
 import "./Promo.css";
 import promoLogo from "../../images/text__COLOR_landing-logo.svg";
 
-function Promo() {
+function Promo({onScroll}) {
+  
+function handleScroll () {
+  onScroll();
+} 
+
+
   return (
     <section className="promo">
       <div className="promo__container">
@@ -16,7 +22,7 @@ function Promo() {
       <p className="promo__paragraph">
         Листайте ниже, чтобы узнать больше про этот проект и его создателя.
       </p>
-      <button className="promo__button" type="button">
+      <button className="promo__button app__button" type="button" onClick={handleScroll}>
         Узнать больше
       </button>
       

@@ -3,10 +3,9 @@
     padding: 0;
     max-width: 270px;
     display: grid;
-    grid-template-columns: 1fr max-content;
-    grid-template-rows: 1fr min-content max-content max-content;
-    column-gap: 20px;
-    cursor: pointer;    
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: auto 1fr min-content;
+    cursor: pointer;
 }
 
 .movies-card__image {
@@ -19,18 +18,18 @@
 }
 
 .movies-card__title {
-    margin: 14px 0 29px;
+    margin: 14px 0 13px;
     padding: 0;
     max-width: 226px;
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
     line-height: 121%;
-    white-space: nowrap;
 }
 
 .movies-card__like-button {
     margin: 10px 0 0;
+    padding: 0;
     background: url(../../images/like.svg);
     background-repeat: no-repeat;
     background-position: center;
@@ -52,7 +51,7 @@
 }
 
 .movies-card__delete-button {
-    margin: 10px 0 0;
+    margin: 10px 0 0 20px;
     opacity: 0;
     background: url(../../images/delete-button.svg);
     background-repeat: no-repeat;

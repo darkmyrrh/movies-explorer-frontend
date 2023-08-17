@@ -7,7 +7,7 @@
 .techs__container {
     margin: 0 auto;
     padding: 0;
-    width: 89%;
+    max-width: 1140px;
 }
 
 .techs__title {
@@ -17,7 +17,7 @@
     font-size: 50px;
     line-height: 116%;
     font-weight: 400;
-    letter-spacing: -4%;
+    letter-spacing: -0.04em;
     text-align: center;
 }
 
@@ -29,7 +29,7 @@
     font-size: 14px;
     line-height: 143%;
     font-weight: 400;
-    letter-spacing: -4%;
+    letter-spacing: -0.04em;
     text-align: center;
 }
 
@@ -52,7 +52,7 @@
     min-width: 90px;
     font-size: 14px;
     text-align: center;
-    letter-spacing: -4%;
+    letter-spacing: -0.04em;
     line-height: 121%;
     border-radius: 10px;
     text-decoration: none;
@@ -60,9 +60,18 @@
     color: black;
 }
 
+@media all and (max-width: 1279px) {
+    .techs__container {
+        width: 89%;
+    }
+}
+
 @media all and (max-width: 768px) {
     .techs {
         padding: 90px 0;
+    }
+    .techs__container {        
+        width: 87%;
     }
     .techs__title {
         margin-top: 80px;
@@ -87,6 +96,10 @@
 @media all and (max-width: 400px) {
     .techs {
         padding: 70px 0;
+        background-color: white;
+    }
+    .techs__container {        
+        width: 89%;
     }
     .techs__title {
         margin-top: 60px;
@@ -101,5 +114,9 @@
     .techs__list{
         margin: 50px auto 0;
         max-width: 178px;
+    }
+    .techs__list-item {
+        line-height: 121%;
+        letter-spacing: -0.04%;
     }
 }

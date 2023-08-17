@@ -57,19 +57,33 @@
     }
 }
 
+@media all and (max-width: 768px) {
+    .footer {
+        width: 92%;
+    }
+}
+
 @media all and (max-width: 400px) {
+    .footer {
+        width: 94%;
+    }
     .footer__heading {
+        padding-bottom: 21px;
         font-size: 12px;
-        line-height: 125%;
+        line-height: 121%;
     }
 
     .footer__container {
+        margin: 30px auto 0;
         flex-direction: column-reverse;
         align-items: center;
+        justify-items: baseline;
     }
     .footer__date {
         margin: 30px auto 20px;
         color: #A0A0A0;
+        font-size: 12px;
+        line-height: 121%;
     }
 
     .footer__links {
@@ -79,6 +93,6 @@
     }
     .footer__link {
         font-size: 12px;
-        line-height: 125%;
+        line-height: 121%;
     }
 }

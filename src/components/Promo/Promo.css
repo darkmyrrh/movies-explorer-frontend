@@ -7,7 +7,7 @@
 .promo__container {
     margin: 0 auto;
     padding: 0;
-    width: 89%;
+    max-width: 1140px;
     display: grid;
     grid-template-columns: repeat(2 min-content);
     grid-template-rows: repeat(3 max-content);
@@ -66,6 +66,11 @@
     cursor: pointer;
 }
 
+@media all and (max-width: 1279px) {
+    .promo__container {
+        width: 89%;
+    }
+}
 @media all and (max-width: 896px) {
     .promo__container {
         column-gap: 70px;
@@ -74,9 +79,13 @@
 
 @media all and (max-width: 768px) {
     .promo__container {
+        width: 92%;
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    .promo__logo {
+        margin-top: 140px;
     }
     .promo__heading {
         margin-top: 48px;
@@ -87,6 +96,7 @@
     .promo__paragraph {
         text-align: center;
         margin-top: 22px;
+        max-width: 260px;
     }
     .promo__button {
         margin-top: 92px;
@@ -96,6 +106,9 @@
 }
 
 @media all and (max-width: 400px) {    
+    .promo__container {
+        width: 91%;
+    }
     .promo__logo {
         margin-top: 70px;
         width: 210px;
@@ -105,6 +118,7 @@
         margin-top: 44px;
         font-size: 30px;
         line-height: 127%;
+        letter-spacing: -0.04em;
     }
     .promo__paragraph {
         margin-top: 24px;

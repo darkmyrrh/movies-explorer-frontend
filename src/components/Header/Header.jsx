@@ -67,7 +67,7 @@ function Header({ loggedIn, isVisible }) {
         ) : (
           <>
             <img src={logo} alt="логотип" className="header__logo" />
-            <ul className="header__nav">
+            <ul className="header__buttons">
               <Link to="/register" className="header__link app__link">Регистрация</Link>
               <Link to="/login">
                 <button className="header__button app__button">Войти</button>

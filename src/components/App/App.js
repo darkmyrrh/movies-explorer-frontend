@@ -72,7 +72,7 @@ function App() {
           path="/"
           element={
             <>
-              <Header loggedIn={loggedIn} isVisible={true} />
+              <Header loggedIn={false} isVisible={true} />
               <Main />
               <Footer isVisible={true} />
             </>

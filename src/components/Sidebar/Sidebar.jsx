@@ -41,7 +41,7 @@ function Sidebar({isOpened, onCloseSidebar}) {
             Сохраненные фильмы
           </NavLink>
         </ul>
-        <Link to="/profile">
+        <Link to="/profile" className="sidebar__link_no-underline">
           <button type="button" className="header__account-button sidebar__account-button app__button" onClick={closeSidebar}>
             Аккаунт
           </button>

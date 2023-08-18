@@ -1,6 +1,6 @@
 import "./Login.css";
 import { useState } from "react";
-import AuthForm from "../AuthForm/AuthForm";
+import AuthForm from "../AuthPage/AuthPage";
 
 
 function Login({onLogin}) {
@@ -28,23 +28,25 @@ function Login({onLogin}) {
         isDisabled={isSubmitDisabled}
         onSubmit={handleSubmit}
       >
-        <label htmlFor="email" className="auth-form__label">
+        <label htmlFor="email" className="auth-page__form-label">
           E-mail
           <input
             type="text"
             name="email"
+            id="email"
             placeholder="E-mail"
-            className="auth-form__input"
+            className="auth-page__form-input"
             onChange={handleChange}
             value="email"
           />
         </label>
-        <label htmlFor="password" className="auth-form__label">
+        <label htmlFor="password" className="auth-page__form-label">
           Пароль
           <input
             type="password"
             name="password"
-            className="auth-form__input"
+            id="password"
+            className="auth-page__form-input"
             placeholder="******"
             value="password"
           />

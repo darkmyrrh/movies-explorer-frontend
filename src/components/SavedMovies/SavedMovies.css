@@ -1,16 +1,19 @@
 .saved-movies {
     margin: 0 auto;
+    padding: 0;
+    padding-bottom: 230px;
     max-width: 1140px;
 }
 
 @media all and (max-width: 1279px) {
     .saved-movies {
-        width: 89%;
+        width: 92%;
+        padding-bottom: 140px;
     }    
 }
 
 @media all and (max-width: 500px) {
     .saved-movies {
-        width: 91%;
+        width: 93%;
     }    
 }

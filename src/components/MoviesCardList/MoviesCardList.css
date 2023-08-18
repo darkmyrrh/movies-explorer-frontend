@@ -9,14 +9,15 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   grid-auto-rows: 1fr;
-  row-gap: 38px;
+  row-gap: 39px;
   column-gap: 20px;
   list-style: none;
 }
 
 @media all and (max-width: 954px) {
     .movies-cardlist__movies-grid {
-        gap: 30px;
+        column-gap: 30px;
+        row-gap: 31px;
     }
 }
 
@@ -25,6 +26,6 @@
         padding-top: 40px;
     }
     .movies-cardlist__movies-grid {
-        gap: 34px;
+        gap: 36px;
     }
 }

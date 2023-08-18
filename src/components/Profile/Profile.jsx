@@ -34,25 +34,28 @@ function Profile({ onSubmit, onExit }) {
             placeholder="Виталий"
             className="profile__input"
             name="name"
+            id="name"
             disabled={isSubmitVisible ? false : true}
             required
             onChange={handleChange}
-            value="name"
+            value="Виталий"
           />
         </label>
         <label htmlFor="email" className="profile__label">
-          Почта
+          E-mail
           <input
             type="text"
             placeholder="test@test.ru"
             className="profile__input"
             name="email"
+            id="email"
             disabled={isSubmitVisible ? false : true}
             required
             onChange={handleChange}
-            value="email"
+            value="test@test.ru"
           />
-        </label>
+        </label>        
+      </form>
         {isSubmitVisible ? (
           <button
             type="submit"
@@ -62,10 +65,10 @@ function Profile({ onSubmit, onExit }) {
             Сохранить
           </button>
         ) : (
-          <>
+          <ul className="profile__links">
             <button
               type="button"
-              className="profile__edit app__button"
+              className="profile__link app__link"
               onClick={enableEditing}
             >
               Редактировать
@@ -73,14 +76,13 @@ function Profile({ onSubmit, onExit }) {
 
             <button
               type="button"
-              className="profile__exit app__button"
+              className="profile__link profile__link_red app__link"
               onClick={onExit}
             >
               Выйти из аккаунта
             </button>
-          </>
+          </ul>
         )}
-      </form>
     </section>
   );
 }

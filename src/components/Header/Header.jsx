@@ -6,11 +6,10 @@ import logoLoggedIn from "../../images/logo_logged-in.svg";
 import Sidebar from "../Sidebar/Sidebar";
 
 function Header({ loggedIn, isVisible }) {
+ 
   const location = useLocation();
   const landingPage = location.pathname === "/";
-  const headerClassName = `header ${isVisible ? "" : "header_not-visible"} ${
-    landingPage ? "header_dark" : ""
-  }`;
+  const headerClassName = `header ${landingPage ? "header_dark" : ""}`;
 
   const accountButtonClassName = `header__account-button app__button ${
     landingPage ? "header__account-button_green" : ""
@@ -24,7 +23,10 @@ function Header({ loggedIn, isVisible }) {
   function closeSidebar() {
     setIsSidebarOpened(false);
   }
-
+  if (!isVisible) {
+    return null;
+  }
+  
   return (
     <header className={headerClassName}>
       <div className="header__container">
@@ -44,10 +46,10 @@ function Header({ loggedIn, isVisible }) {
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
-                `app__link header__link ${
-                  landingPage ? "" : "header__link_black"
-                } ${isActive && "header__link_active"}`
-              }
+                  `app__link header__link ${
+                    landingPage ? "" : "header__link_black"
+                  } ${isActive && "header__link_active"}`
+                }
                 to="/saved-movies"
               >
                 Сохраненные фильмы
@@ -59,7 +61,9 @@ function Header({ loggedIn, isVisible }) {
               </button>
             </Link>
             <button
-              className={`header__burger-menu app__button ${landingPage ? "header__burger-menu_white" : ""}`}
+              className={`header__burger-menu app__button ${
+                landingPage ? "header__burger-menu_white" : ""
+              }`}
               onClick={openSidebar}
             />
             <Sidebar isOpened={isSidebarOpened} onCloseSidebar={closeSidebar} />
@@ -68,7 +72,9 @@ function Header({ loggedIn, isVisible }) {
           <>
             <img src={logo} alt="логотип" className="header__logo" />
             <ul className="header__buttons">
-              <Link to="/register" className="header__link app__link">Регистрация</Link>
+              <Link to="/register" className="header__link app__link">
+                Регистрация
+              </Link>
               <Link to="/login">
                 <button className="header__button app__button">Войти</button>
               </Link>

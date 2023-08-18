@@ -8,9 +8,20 @@
         width: 89%;
     }    
 }
+@media all and (max-width: 768px) {
+    .movies {
+        width: 92%;
+    }    
+}
 
 @media all and (max-width: 500px) {
     .movies {
         width: 91%;
+    }    
+}
+
+@media all and (max-width: 320px) {
+    .movies {
+        width: 94%;
     }    
 }

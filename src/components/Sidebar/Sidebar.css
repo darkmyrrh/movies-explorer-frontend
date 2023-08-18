@@ -11,6 +11,7 @@
     display: flex;
     justify-content: right;
     transition: transform 0.4s ease-in;
+    z-index: 700;
 }
 .sidebar_opened {
     visibility: visible;
@@ -19,8 +20,9 @@
 .sidebar__container {
     margin: 0;
     padding: 0;
+    padding-bottom: 90px;
     min-width: 520px;
-    height: 100vh;
+    height: 100%;
     background-color: white;
     position: relative;
     text-align: center;
@@ -29,20 +31,18 @@
     justify-content: space-between;
 }
 .sidebar__nav {
-    margin: 105px auto auto;
+    margin: 159px auto auto;
     padding: 0;
     display: flex;
     flex-direction: column;
-    row-gap: 28px;
     list-style: none;
 }
 
 .sidebar__link {
-    margin: 0 auto;
+    margin: 0 auto 28px;
     padding: 0;
-    padding-bottom: 4px;
     font-size: 18px;
-    line-height: 122%;
+    line-height: 121%;
     font-weight: 500;
     text-decoration: none;
     color: black;
@@ -51,6 +51,13 @@
 
 .sidebar__link_active {
     border-bottom: 2px solid black;
+    margin-bottom: 22px;
+    padding-bottom: 4px;
+}
+.sidebar__link_no-underline {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
 }
 
 .sidebar__close {
@@ -58,8 +65,8 @@
     padding: 0;
     background: none;
     border: none;
-    width: 22px;
-    height: 22px;
+    width: 31px;
+    height: 31px;
     background-image: url(../../images/close-button.svg);
     background-repeat: no-repeat;
     background-size: contain;
@@ -72,6 +79,7 @@
 .sidebar__account-button { 
     margin: auto auto 90px;
     display: initial;
+    text-decoration: none;
 }
 
 
@@ -84,14 +92,31 @@
 
 @media all and (max-width: 350px) {
     .sidebar__container {
-        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 46px;
+        min-width: 320px;
     }
+    
     .sidebar__close {
         top: 13px;
         right: 13px;
     }
+    .sidebar__nav {
+        margin-top: 144px;        
+        min-width: 300px;
+    }
     .sidebar__link {
+        text-align: center;
+        margin-bottom: 19px;
         padding-bottom: 7px;
     }
+    .sidebar__link_active {
+        margin-bottom: 15px;
+    }
+    
+    .sidebar__account-button {
+        margin-bottom: 46px;
+    }
+    
 }
 

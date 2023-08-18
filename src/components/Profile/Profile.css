@@ -3,6 +3,9 @@
     padding: 0;
     padding-bottom: 70px;
     text-align: center;
+    min-height: 80%;
+    display: flex;
+    flex-direction: column;
 }
 
 .profile__title {
@@ -15,7 +18,7 @@
 
 .profile__form {
     margin: 0 auto;
-    max-width: 410px;    
+    min-width: 410px;
 }
 
 .profile__label {
@@ -24,7 +27,7 @@
     padding-bottom: 16px;
     width: 100%;
     font-size: 11px;
-    line-height: 118%;
+    line-height: 121%;
     font-weight: 500;
     text-align: left;
     display: flex;
@@ -39,12 +42,14 @@
 }
 
 .profile__input {
-    opacity: 1;
+    margin: 0;
+    padding: 0;
     font-size: 11px;
     text-align: right;
-    line-height: 118%;
+    line-height: 121%;
     font-weight: 400;
     border: none;
+    background-color: white;
 }
 
 .profile__input::placeholder {
@@ -53,6 +58,7 @@
     opacity: 1;
     color: black;
     font-weight: 400;
+    
 }
 
 .profile__input:focus {
@@ -60,27 +66,30 @@
     outline: none;
 }
 
-.profile__edit {
-    margin: 220px auto 0;
+.profile__links {
+    margin: auto auto 0;
     padding: 0;
-    width: 100%;
-    font-size: 13px;
-    line-height: 123%;
-    border: none;
-    background: none;
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
     cursor: pointer;
-
+    list-style: none;
+    align-items: center;
 }
 
-.profile__exit {
-    margin: 16px auto 0;
-    padding: 0;
+.profile__link {
+    margin: 0;
+    padding: 0;    
     font-size: 13px;
-    line-height: 123%;
-    color: #FF3055;
+    line-height: 121%;
+    text-align: center;
+    color: black;
     border: none;
     background: none;
-    cursor: pointer;
+}
+
+.profile__link_red {
+    color: #FF3055;
 }
 
 .profile__submit {
@@ -103,20 +112,25 @@
     cursor: not-allowed;
 }
 
+@media all and (max-width: 768px) {
+    .profile__title {
+        margin-top: 236px;
+        margin-bottom: 97px;
+    }
+    .profile__links {
+        margin-top: 210px;
+    }
+}
+
 @media all and (max-width: 490px) {
     .profile__form {
-        max-width: 260px;
+        min-width: 260px;
     }
     .profile__title {
         margin: 70px auto 80px;
         font-size: 24px;
     }
-    .profile__edit {
-        margin-top: 379px;
-        font-size: 12px;
-        line-height: 125%;
-    }
-    .profile__exit {
+    .profile__link {
         font-size: 12px;
         line-height: 125%;
     }

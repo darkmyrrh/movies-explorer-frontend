@@ -67,6 +67,9 @@
   .filter-checkbox {
     margin: 41px auto 51px;
   }
+  .filter-checkbox__text {
+    font-size: 11px;
+  }
   .filter-checkbox__input + .filter-checkbox__text {
     gap: 13px
   }

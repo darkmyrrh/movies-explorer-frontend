@@ -1,11 +1,11 @@
 .login {
-    margin: 0 auto;
-    padding: 0;
-    max-width: 396px;
-    height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 396px;
+  height: 100%;
 }
 @media all and (max-width: 472px) {
-    .login {
-        max-width: 260px;
-    }    
+  .login {
+    max-width: 260px;
+  }
 }

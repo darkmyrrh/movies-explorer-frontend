@@ -2,18 +2,16 @@ import "./Login.css";
 import { useState } from "react";
 import AuthForm from "../AuthPage/AuthPage";
 
-
-function Login({onLogin}) {
+function Login({ onLogin }) {
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-  
+
   const handleChange = () => {
-    
     setIsSubmitDisabled(false);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     onLogin();
-    setIsSubmitDisabled(true)
+    setIsSubmitDisabled(true);
   };
 
   return (

@@ -1,27 +1,27 @@
 .movies {
-    margin: 0 auto;
-    max-width: 1140px;
+  margin: 0 auto;
+  max-width: 1140px;
 }
 
 @media all and (max-width: 1279px) {
-    .movies {
-        width: 89%;
-    }    
+  .movies {
+    width: 89%;
+  }
 }
 @media all and (max-width: 768px) {
-    .movies {
-        width: 92%;
-    }    
+  .movies {
+    width: 92%;
+  }
 }
 
 @media all and (max-width: 500px) {
-    .movies {
-        width: 91%;
-    }    
+  .movies {
+    width: 91%;
+  }
 }
 
 @media all and (max-width: 320px) {
-    .movies {
-        width: 94%;
-    }    
+  .movies {
+    width: 94%;
+  }
 }

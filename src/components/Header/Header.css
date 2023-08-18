@@ -80,7 +80,6 @@
   cursor: pointer;
 }
 
-
 .header__account-button {
   margin: 21px 0;
   padding: 9.5px 11px;
@@ -117,7 +116,7 @@
   background-image: url(../../images/header-menu.svg);
   background-repeat: no-repeat;
   background-size: 28px;
-  background-position: center;  
+  background-position: center;
   border: none;
   cursor: pointer;
 }
@@ -139,7 +138,7 @@
   .header__nav {
     display: none;
   }
-  
+
   .header__account-button {
     display: none;
   }
@@ -147,7 +146,6 @@
   .header__burger-menu {
     display: initial;
   }
-  
 }
 
 @media all and (max-width: 400px) {

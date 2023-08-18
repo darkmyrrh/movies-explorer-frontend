@@ -9,7 +9,6 @@ function Profile({ onSubmit, onExit }) {
     isSubmitDisabled && "profile__submit_disabled"
   }`;
 
-
   const handleChange = () => {
     setIsSubmitDisabled(false);
   };
@@ -54,35 +53,35 @@ function Profile({ onSubmit, onExit }) {
             onChange={handleChange}
             value="test@test.ru"
           />
-        </label>        
+        </label>
       </form>
-        {isSubmitVisible ? (
+      {isSubmitVisible ? (
+        <button
+          type="submit"
+          className={submitClassName}
+          disabled={isSubmitDisabled ? true : false}
+        >
+          Сохранить
+        </button>
+      ) : (
+        <ul className="profile__links">
           <button
-            type="submit"
-            className={submitClassName}
-            disabled={isSubmitDisabled ? true : false}
+            type="button"
+            className="profile__link app__link"
+            onClick={enableEditing}
           >
-            Сохранить
+            Редактировать
           </button>
-        ) : (
-          <ul className="profile__links">
-            <button
-              type="button"
-              className="profile__link app__link"
-              onClick={enableEditing}
-            >
-              Редактировать
-            </button>
 
-            <button
-              type="button"
-              className="profile__link profile__link_red app__link"
-              onClick={onExit}
-            >
-              Выйти из аккаунта
-            </button>
-          </ul>
-        )}
+          <button
+            type="button"
+            className="profile__link profile__link_red app__link"
+            onClick={onExit}
+          >
+            Выйти из аккаунта
+          </button>
+        </ul>
+      )}
     </section>
   );
 }

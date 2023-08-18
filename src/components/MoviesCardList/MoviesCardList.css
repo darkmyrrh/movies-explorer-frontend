@@ -15,17 +15,17 @@
 }
 
 @media all and (max-width: 954px) {
-    .movies-cardlist__movies-grid {
-        column-gap: 30px;
-        row-gap: 31px;
-    }
+  .movies-cardlist__movies-grid {
+    column-gap: 30px;
+    row-gap: 31px;
+  }
 }
 
 @media all and (max-width: 450px) {
-    .movies-cardlist {
-        padding-top: 40px;
-    }
-    .movies-cardlist__movies-grid {
-        gap: 36px;
-    }
+  .movies-cardlist {
+    padding-top: 40px;
+  }
+  .movies-cardlist__movies-grid {
+    gap: 36px;
+  }
 }

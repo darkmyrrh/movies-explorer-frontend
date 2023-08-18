@@ -6,7 +6,6 @@ import logoLoggedIn from "../../images/logo_logged-in.svg";
 import Sidebar from "../Sidebar/Sidebar";
 
 function Header({ loggedIn, isVisible }) {
- 
   const location = useLocation();
   const landingPage = location.pathname === "/";
   const headerClassName = `header ${landingPage ? "header_dark" : ""}`;
@@ -26,7 +25,7 @@ function Header({ loggedIn, isVisible }) {
   if (!isVisible) {
     return null;
   }
-  
+
   return (
     <header className={headerClassName}>
       <div className="header__container">

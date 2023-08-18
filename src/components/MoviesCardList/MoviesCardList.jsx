@@ -5,14 +5,13 @@ import useResize from "../../hooks/useResize";
 function MoviesCardList({ cards, isLiked, onLikeClick, onDeleteClick }) {
   const { isScreenLarge, isScreenMedium } = useResize();
   let num;
-  function getCardsNumber() {    
+  function getCardsNumber() {
     if (isScreenLarge) {
-      return num = 16;
+      return (num = 16);
     } else if (isScreenMedium) {
-      return num = 8;
-    }
-    else {
-      return num = 5;
+      return (num = 8);
+    } else {
+      return (num = 5);
     }
   }
   const cardElements = cards

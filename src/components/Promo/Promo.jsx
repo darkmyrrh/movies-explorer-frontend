@@ -1,31 +1,32 @@
 import "./Promo.css";
 import promoLogo from "../../images/text__COLOR_landing-logo.svg";
 
-function Promo({onScroll}) {
-  
-function handleScroll () {
-  onScroll();
-} 
-
+function Promo({ onScroll }) {
+  function handleScroll() {
+    onScroll();
+  }
 
   return (
     <section className="promo">
       <div className="promo__container">
-      <img
-        src={promoLogo}
-        alt="Логотип промо-страницы"
-        className="promo__logo"
-      />
+        <img
+          src={promoLogo}
+          alt="Логотип промо-страницы"
+          className="promo__logo"
+        />
         <h1 className="promo__heading">
-        Учебный проект студента факультета Веб-разработки.
-      </h1>
-      <p className="promo__paragraph">
-        Листайте ниже, чтобы узнать больше про этот проект и его создателя.
-      </p>
-      <button className="promo__button app__button" type="button" onClick={handleScroll}>
-        Узнать больше
-      </button>
-      
+          Учебный проект студента факультета Веб-разработки.
+        </h1>
+        <p className="promo__paragraph">
+          Листайте ниже, чтобы узнать больше про этот проект и его создателя.
+        </p>
+        <button
+          className="promo__button app__button"
+          type="button"
+          onClick={handleScroll}
+        >
+          Узнать больше
+        </button>
       </div>
     </section>
   );

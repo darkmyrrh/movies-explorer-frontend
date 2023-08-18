@@ -7,13 +7,12 @@ import AboutMe from "../AboutMe/AboutMe";
 import Portfolio from "../Portfolio/Portfolio";
 
 function Main() {
-
   const ref = useRef();
 
   const handleScroll = () => {
-    ref.current.scrollIntoView({ behavior: 'smooth' });
+    ref.current.scrollIntoView({ behavior: "smooth" });
   };
-  
+
   return (
     <main className="main">
       <Promo onScroll={handleScroll} />

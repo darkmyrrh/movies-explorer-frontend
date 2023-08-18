@@ -1,8 +1,6 @@
 import "./FilterCheckbox.css";
 
 function FilterCheckbox() {
- 
-
   return (
     <div className="filter-checkbox">
       <input

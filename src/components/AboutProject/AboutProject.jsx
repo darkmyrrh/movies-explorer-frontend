@@ -1,7 +1,6 @@
 import "./AboutProject.css";
 
 function AboutProject({ refProps }) {
-
   return (
     <section className="about-project" ref={refProps}>
       <h2 className="main__heading">О проекте</h2>

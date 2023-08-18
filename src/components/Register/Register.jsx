@@ -2,16 +2,16 @@ import "./Register.css";
 import { useState } from "react";
 import AuthForm from "../AuthPage/AuthPage";
 
-function Register({onRegister}) {
+function Register({ onRegister }) {
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-  
-  const handleChange = () => {    
+
+  const handleChange = () => {
     setIsSubmitDisabled(false);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     onRegister();
-    setIsSubmitDisabled(true)
+    setIsSubmitDisabled(true);
   };
   return (
     <main className="register">
@@ -21,7 +21,7 @@ function Register({onRegister}) {
         buttonText="Зарегистрироваться"
         text="Уже зарегистрированы?"
         linkText="Войти"
-        page="/login"        
+        page="/login"
         isDisabled={isSubmitDisabled}
         onSubmit={handleSubmit}
       >
@@ -59,7 +59,7 @@ function Register({onRegister}) {
             onChange={handleChange}
             value="password"
           />
-        <span className="auth-page__error-text">Что-то пошло не так...</span>
+          <span className="auth-page__error-text">Что-то пошло не так...</span>
         </label>
       </AuthForm>
     </main>

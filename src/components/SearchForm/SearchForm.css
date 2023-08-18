@@ -1,61 +1,61 @@
 .search-form {
-    margin: 70px auto 0;
-    padding: 0;
-    border-bottom: 1px solid #E8E8E8;
-    display: grid;
-    grid-template-columns: auto max-content;
+  margin: 70px auto 0;
+  padding: 0;
+  border-bottom: 1px solid #e8e8e8;
+  display: grid;
+  grid-template-columns: auto max-content;
 }
 
-.search-form__input {    
-    margin: 0 0 13px;
-    padding: 0;
-    font-size: 28px;
-    line-height: 121%;
-    font-weight: 500;
-    border: none;
-    width: 93%;
+.search-form__input {
+  margin: 0 0 13px;
+  padding: 0;
+  font-size: 28px;
+  line-height: 121%;
+  font-weight: 500;
+  border: none;
+  width: 93%;
 }
 
 .search-form__input::placeholder {
-    -webkit-placeholder-opacity: 1;
-    -moz-placeholder-opacity: 1;
-    opacity: 1;
-    color: #A0A0A0;
+  -webkit-placeholder-opacity: 1;
+  -moz-placeholder-opacity: 1;
+  opacity: 1;
+  color: #a0a0a0;
 }
 
-.search-form__input:focus {    
-    outline: none;
+.search-form__input:focus {
+  outline: none;
 }
 
 .search-form__submit {
-    margin: 0 0 13px 21px;
-    padding: 8px 0;
-    background-color: #3456F3;
-    font-size: 11px;
-    line-height: 163%;
-    color: white;
-    border: none;
-    border-radius: 48px;
-    min-width: 58.65px;
-    font-weight: 500;
+  margin: 0 0 13px 21px;
+  padding: 8px 0;
+  background-color: #3456f3;
+  font-size: 11px;
+  line-height: 163%;
+  color: white;
+  border: none;
+  border-radius: 48px;
+  min-width: 58.65px;
+  font-weight: 500;
 }
 
 @media all and (max-width: 768px) {
-    .search-form {
-        margin-top: 80px;
-    }
+  .search-form {
+    margin-top: 80px;
+  }
 }
 
 @media all and (max-width: 320px) {
-    .search-form {
-        margin-top: 84px;
-        max-width: 292px;
-    }
-    .search-form__input {
-        font-size: 18px;
-        margin-bottom: 9px;
-    }
-    .search-form__submit {
-        margin-bottom: 9px;
-    }
+  .search-form {
+    margin-top: 84px;
+    max-width: 292px;
+  }
+  .search-form__input {
+    font-size: 18px;
+    margin-bottom: 9px;
+  }
+  .search-form__submit {
+    margin-bottom: 9px;
+  }
 }

@@ -24,7 +24,6 @@
 .profile__label {
   margin: 0;
   padding: 0;
-  padding-bottom: 16px;
   width: 100%;
   font-size: 11px;
   line-height: 121%;
@@ -44,6 +43,7 @@
 .profile__input {
   margin: 0;
   padding: 0;
+  padding-bottom: 16px;
   font-size: 11px;
   text-align: right;
   line-height: 121%;
@@ -61,8 +61,11 @@
 }
 
 .profile__input:focus {
-  border: none;
   outline: none;
+}
+
+.profile__label:focus-within {
+  border-bottom: 1px solid #3456f3;
 }
 
 .profile__links {
@@ -94,7 +97,6 @@
 .profile__submit {
   margin: 223px auto 0;
   padding: 13px 0 15px;
-  width: 100%;
   border: none;
   border-radius: 3px;
   background-color: #3456f3;
@@ -102,6 +104,7 @@
   font-size: 14px;
   line-height: 121%;
   font-weight: 500;
+  min-width: 410px;
   cursor: pointer;
 }
 
@@ -132,5 +135,8 @@
   .profile__link {
     font-size: 12px;
     line-height: 125%;
+  }
+  .profile__submit {    
+    min-width: 260px;
   }
 }

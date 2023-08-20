@@ -12,22 +12,26 @@ function Footer({ isVisible }) {
       <div className="footer__container">
         <p className="footer__date">&#169; {new Date().getFullYear()}</p>
         <ul className="footer__links">
-          <a
-            href="https://practicum.yandex.ru/"
-            target="_blank"
-            rel="noreferrer"
-            className="footer__link app__link"
-          >
-            Яндекс.Практикум
-          </a>
-          <a
-            href="https://github.com/darkmyrrh/"
-            target="_blank"
-            rel="noreferrer"
-            className="footer__link app__link"
-          >
-            Github
-          </a>
+          <li>
+            <a
+              href="https://practicum.yandex.ru/"
+              target="_blank"
+              rel="noreferrer"
+              className="footer__link root__link"
+            >
+              Яндекс.Практикум
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/darkmyrrh/"
+              target="_blank"
+              rel="noreferrer"
+              className="footer__link root__link"
+            >
+              Github
+            </a>
+          </li>
         </ul>
       </div>
     </footer>

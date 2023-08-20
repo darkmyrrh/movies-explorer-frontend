@@ -21,7 +21,7 @@ function Promo({ onScroll }) {
           Листайте ниже, чтобы узнать больше про этот проект и его создателя.
         </p>
         <button
-          className="promo__button app__button"
+          className="promo__button root__button"
           type="button"
           onClick={handleScroll}
         >

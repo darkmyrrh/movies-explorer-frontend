@@ -11,57 +11,74 @@ function Techs() {
           дипломном проекте.
         </p>
         <ul className="techs__list">
-          <a
-            href="https://practicum.yandex.ru/blog/zachem-nuzhen-html/"
-            target="_blank"
-            rel="noreferrer"
-            className="techs__list-item app__button"
-          >
-            HTML
-          </a>
-          <a
-            href="https://practicum.yandex.ru/blog/chto-takoe-css/"
-            target="_blank"
-            rel="noreferrer"
-            className="techs__list-item app__button"
-          >
-            CSS
-          </a>
-          <a
-            href="https://practicum.yandex.ru/blog/chto-takoe-javascript-zachem-nuzhen/"
-            target="_blank"
-            rel="noreferrer"
-            className="techs__list-item app__button"
-          >
-            JS
-          </a>
-          <a href="https://react.dev/" className="techs__list-item app__button">
-            React
-          </a>
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noreferrer"
-            className="techs__list-item app__button"
-          >
-            Git
-          </a>
-          <a
-            href="https://expressjs.com/ru/"
-            target="_blank"
-            rel="noreferrer"
-            className="techs__list-item app__button"
-          >
-            Express.js
-          </a>
-          <a
-            href="https://www.mongodb.com/"
-            target="_blank"
-            rel="noreferrer"
-            className="techs__list-item app__button"
-          >
-            mongoDB
-          </a>
+          <li className="techs__list-item root__button">
+            <a
+              href="https://practicum.yandex.ru/blog/zachem-nuzhen-html/"
+              target="_blank"
+              rel="noreferrer"
+              className="techs__list-link"
+            >
+              HTML
+            </a>
+          </li>
+          <li className="techs__list-item root__button">
+            <a
+              href="https://practicum.yandex.ru/blog/chto-takoe-css/"
+              target="_blank"
+              rel="noreferrer"
+              className="techs__list-link"
+            >
+              CSS
+            </a>
+          </li>
+          <li className="techs__list-item root__button">
+            <a
+              href="https://practicum.yandex.ru/blog/chto-takoe-javascript-zachem-nuzhen/"
+              target="_blank"
+              rel="noreferrer"
+              className="techs__list-link"
+            >
+              JS
+            </a>
+          </li>
+          <li className="techs__list-item root__button">
+            <a
+              href="https://react.dev/"
+              className="techs__list-link"
+            >
+              React
+            </a>
+          </li>
+          <li className="techs__list-item root__button">
+            <a
+              href="https://github.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="techs__list-link"
+            >
+              Git
+            </a>
+          </li>
+          <li className="techs__list-item root__button">
+            <a
+              href="https://expressjs.com/ru/"
+              target="_blank"
+              rel="noreferrer"
+              className="techs__list-link"
+            >
+              Express.js
+            </a>
+          </li>
+          <li className="techs__list-item root__button">
+            <a
+              href="https://www.mongodb.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="techs__list-link"
+            >
+              mongoDB
+            </a>
+          </li>
         </ul>
       </div>
     </section>

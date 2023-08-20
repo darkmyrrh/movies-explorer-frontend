@@ -1,8 +1,10 @@
 .register {
+  margin: auto auto;
   padding: 0;
-  margin: 0 auto;
   max-width: 396px;
   height: 100%;
+  display: flex;
+  align-content: center;
 }
 
 @media all and (max-width: 472px) {

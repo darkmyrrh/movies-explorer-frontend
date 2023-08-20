@@ -10,7 +10,7 @@ function Header({ loggedIn, isVisible }) {
   const landingPage = location.pathname === "/";
   const headerClassName = `header ${landingPage ? "header_dark" : ""}`;
 
-  const accountButtonClassName = `header__account-button app__button ${
+  const accountButtonClassName = `header__account-button root__button ${
     landingPage ? "header__account-button_green" : ""
   }`;
 
@@ -31,28 +31,34 @@ function Header({ loggedIn, isVisible }) {
       <div className="header__container">
         {loggedIn ? (
           <>
-            <img src={logoLoggedIn} alt="логотип" className="header__logo" />
+            <Link to="/" className="header__link root__link">
+              <img src={logoLoggedIn} alt="логотип" className="header__logo" />
+            </Link>
             <ul className="header__nav">
-              <NavLink
-                className={({ isActive }) =>
-                  `app__link header__link ${
-                    landingPage ? "" : "header__link_black"
-                  } ${isActive && "header__link_active"}`
-                }
-                to="/movies"
-              >
-                Фильмы
-              </NavLink>
-              <NavLink
-                className={({ isActive }) =>
-                  `app__link header__link ${
-                    landingPage ? "" : "header__link_black"
-                  } ${isActive && "header__link_active"}`
-                }
-                to="/saved-movies"
-              >
-                Сохраненные фильмы
-              </NavLink>
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    `root__link header__link ${
+                      landingPage ? "" : "header__link_black"
+                    } ${isActive && "header__link_active"}`
+                  }
+                  to="/movies"
+                >
+                  Фильмы
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    `root__link header__link ${
+                      landingPage ? "" : "header__link_black"
+                    } ${isActive && "header__link_active"}`
+                  }
+                  to="/saved-movies"
+                >
+                  Сохраненные фильмы
+                </NavLink>
+              </li>
             </ul>
             <Link to="/profile">
               <button type="button" className={accountButtonClassName}>
@@ -60,7 +66,7 @@ function Header({ loggedIn, isVisible }) {
               </button>
             </Link>
             <button
-              className={`header__burger-menu app__button ${
+              className={`header__burger-menu root__button ${
                 landingPage ? "header__burger-menu_white" : ""
               }`}
               onClick={openSidebar}
@@ -69,14 +75,20 @@ function Header({ loggedIn, isVisible }) {
           </>
         ) : (
           <>
-            <img src={logo} alt="логотип" className="header__logo" />
+            <Link to="/" className="header__link root__link">
+              <img src={logo} alt="логотип" className="header__logo" />
+            </Link>
             <ul className="header__buttons">
-              <Link to="/register" className="header__link app__link">
-                Регистрация
-              </Link>
-              <Link to="/login">
-                <button className="header__button app__button">Войти</button>
-              </Link>
+              <li>
+                <Link to="/register" className="header__link root__link">
+                  Регистрация
+                </Link>
+              </li>
+              <li>
+                <Link to="/login">
+                  <button className="header__button root__button">Войти</button>
+                </Link>
+              </li>
             </ul>
           </>
         )}

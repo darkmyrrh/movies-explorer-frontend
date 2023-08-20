@@ -34,6 +34,7 @@ function Register({ onRegister }) {
             placeholder="Имя"
             onChange={handleChange}
             value="name"
+            required
           />
           <span className="auth-page__error-text"></span>
         </label>
@@ -46,6 +47,7 @@ function Register({ onRegister }) {
             className="auth-page__form-input"
             onChange={handleChange}
             value="email"
+            required
           />
           <span className="auth-page__error-text"></span>
         </label>
@@ -58,6 +60,7 @@ function Register({ onRegister }) {
             placeholder="**************"
             onChange={handleChange}
             value="password"
+            required
           />
           <span className="auth-page__error-text">Что-то пошло не так...</span>
         </label>

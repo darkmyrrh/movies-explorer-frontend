@@ -5,7 +5,7 @@ function Profile({ onSubmit, onExit }) {
   const [isSubmitVisible, setIsSubmitVisible] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
-  const submitClassName = `profile__submit app__button ${
+  const submitClassName = `profile__submit root__button ${
     isSubmitDisabled && "profile__submit_disabled"
   }`;
 
@@ -65,21 +65,24 @@ function Profile({ onSubmit, onExit }) {
         </button>
       ) : (
         <ul className="profile__links">
-          <button
-            type="button"
-            className="profile__link app__link"
-            onClick={enableEditing}
-          >
-            Редактировать
-          </button>
-
-          <button
-            type="button"
-            className="profile__link profile__link_red app__link"
-            onClick={onExit}
-          >
-            Выйти из аккаунта
-          </button>
+          <li>
+            <button
+              type="button"
+              className="profile__link root__link"
+              onClick={enableEditing}
+            >
+              Редактировать
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              className="profile__link profile__link_red root__link"
+              onClick={onExit}
+            >
+              Выйти из аккаунта
+            </button>
+          </li>
         </ul>
       )}
     </section>

@@ -1,5 +1,5 @@
 .portfolio {
-  margin: 100px auto 106px;
+  margin: 101px auto 106px;
   padding: 0;
   max-width: 1140px;
 }
@@ -13,7 +13,7 @@
   color: #a0a0a0;
 }
 
-.potfolio__links {
+.portfolio__links {
   margin: 50px 0 0;
   padding: 0;
   display: flex;
@@ -27,8 +27,12 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #e8e8e8;
-  text-decoration: none;
   cursor: pointer;
+  background-image: url(../../images/arrow.svg);
+  background-repeat: no-repeat;
+  background-position: right 6px top 19px;
+  background-size: 18px;
+
 }
 .portfolio__link:last-child {
   border-bottom: none;
@@ -42,7 +46,14 @@
   line-height: 167%;
   letter-spacing: -0.04em;
   font-weight: 400;
-  color: black;
+  color: black;  
+  text-decoration: none;
+}
+
+.portfolio__link-image {
+    margin: 0;
+    padding: 0;
+    width: 29px;
 }
 
 @media all and (max-width: 1279px) {

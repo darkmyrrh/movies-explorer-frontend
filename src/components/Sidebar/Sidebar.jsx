@@ -13,42 +13,48 @@ function Sidebar({ isOpened, onCloseSidebar }) {
       <div className="sidebar__container">
         <button
           type="button"
-          className="sidebar__close app__button"
+          className="sidebar__close root__button"
           onClick={closeSidebar}
         />
         <ul className="sidebar__nav">
-          <NavLink
-            className={({ isActive }) =>
-              `sidebar__link app__link ${isActive && "sidebar__link_active"}`
-            }
-            to="/"
-            onClick={closeSidebar}
-          >
-            Главная
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              `sidebar__link app__link ${isActive && "sidebar__link_active"}`
-            }
-            to="/movies"
-            onClick={closeSidebar}
-          >
-            Фильмы
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              `sidebar__link app__link ${isActive && "sidebar__link_active"}`
-            }
-            to="/saved-movies"
-            onClick={closeSidebar}
-          >
-            Сохраненные фильмы
-          </NavLink>
+          <li className="sidebar__nav-item ">
+            <NavLink
+              className={({ isActive }) =>
+                `sidebar__link root__link ${isActive && "sidebar__link_active"}`
+              }
+              to="/"
+              onClick={closeSidebar}
+            >
+              Главная
+            </NavLink>
+          </li>
+          <li className="sidebar__nav-item">
+            <NavLink
+              className={({ isActive }) =>
+                `sidebar__link root__link ${isActive && "sidebar__link_active"}`
+              }
+              to="/movies"
+              onClick={closeSidebar}
+            >
+              Фильмы
+            </NavLink>
+          </li>
+          <li  className="sidebar__nav-item">
+            <NavLink
+              className={({ isActive }) =>
+                `sidebar__link root__link ${isActive && "sidebar__link_active"}`
+              }
+              to="/saved-movies"
+              onClick={closeSidebar}
+            >
+              Сохраненные фильмы
+            </NavLink>
+          </li>
         </ul>
         <Link to="/profile" className="sidebar__link_no-underline">
           <button
             type="button"
-            className="header__account-button sidebar__account-button app__button"
+            className="header__account-button sidebar__account-button root__button"
             onClick={closeSidebar}
           >
             Аккаунт

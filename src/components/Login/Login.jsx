@@ -36,6 +36,7 @@ function Login({ onLogin }) {
             className="auth-page__form-input"
             onChange={handleChange}
             value="email"
+            required
           />
         </label>
         <label htmlFor="password" className="auth-page__form-label">
@@ -47,6 +48,7 @@ function Login({ onLogin }) {
             className="auth-page__form-input"
             placeholder="******"
             value="password"
+            required
           />
         </label>
       </AuthForm>

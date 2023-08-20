@@ -1,9 +1,12 @@
 .login {
-  margin: 0 auto;
+  margin: auto auto;
   padding: 0;
   max-width: 396px;
   height: 100%;
+  display: flex;
+  align-content: center;
 }
+
 @media all and (max-width: 472px) {
   .login {
     max-width: 260px;

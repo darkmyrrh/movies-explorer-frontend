@@ -28,7 +28,9 @@ function MoviesCardList({ cards, isLiked, onLikeClick, onDeleteClick }) {
 
   return (
     <section className="movies-cardlist">
-      <ul className="movies-cardlist__movies-grid">{cardElements}</ul>
+      <ul className="movies-cardlist__movies-grid">
+        {cardElements}
+      </ul>
     </section>
   );
 }

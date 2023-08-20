@@ -15,23 +15,25 @@ function AuthForm({
 }) {
   return (
     <section className="auth-page">
-      <img src={logo} alt="Логотип" className="auth-page__logo" />
+      <Link to="/">
+        <img src={logo} alt="Логотип" className="auth-page__logo" />
+      </Link>
       <h1 className="auth-page__greeting">{greetingText}</h1>
       <form className="auth-page__form" name={`${name}`} onSubmit={onSubmit}>
         {children}
       </form>
       <button
         type="submit"
-        className={`auth-page__submit app__button ${
+        className={`auth-page__submit root__button ${
           isDisabled ? "auth-page__submit_disabled" : ""
         }`}
         disabled={isDisabled ? true : false}
       >{`${buttonText}`}</button>
       <p className="auth-page__paragraph">
-        {text}{" "}
-        <Link className="auth-page__link app__link" to={page}>
+        {text}
+        <Link className="auth-page__link root__link" to={page}>
           {linkText}
-        </Link>{" "}
+        </Link>
       </p>
     </section>
   );

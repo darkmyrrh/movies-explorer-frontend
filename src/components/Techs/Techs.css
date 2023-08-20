@@ -54,9 +54,11 @@
   text-align: center;
   letter-spacing: -0.04em;
   line-height: 121%;
-  border-radius: 10px;
-  text-decoration: none;
+  border-radius: 10px;  
   cursor: pointer;
+}
+.techs__list-link {
+  text-decoration: none;
   color: black;
 }
 

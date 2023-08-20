@@ -16,30 +16,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  const SavedMoviesList = [];
-  const [savedMovies, setSavedMovies] = useState([]);
-
-  useEffect(() => {
-    setSavedMovies(JSON.parse(localStorage.getItem("savedMovies")));
-  }, []);
-
-  function handleLikeButtonClick(card) {
-    const isLiked = SavedMoviesList.find((val) => val.name === card.name);
-    if (!isLiked) {
-      SavedMoviesList.push(card);
-      console.log(SavedMoviesList);
-      localStorage.setItem("savedMovies", JSON.stringify(SavedMoviesList));
-    } else {
-      handleDeleteClick(card);
-    }
-  }
-
-  function handleDeleteClick(card) {
-    const updatedSavedMoviesList = SavedMoviesList.filter(
-      (item) => item.name !== card.name
-    );
-    setSavedMovies(updatedSavedMoviesList);
-  }
+  const SavedMoviesList = MoviesList.slice(0, 3);
 
   function handleRegister() {
     navigate("/login", { replace: true });
@@ -83,10 +60,7 @@ function App() {
           element={
             <>
               <Header loggedIn={true} isVisible={true} />
-              <Movies
-                moviesList={MoviesList}
-                onLikeClick={handleLikeButtonClick}
-              />
+              <Movies moviesList={MoviesList} />
               <Footer isVisible={true} />
             </>
           }
@@ -96,10 +70,7 @@ function App() {
           element={
             <>
               <Header loggedIn={true} isVisible={true} />
-              <SavedMovies
-                savedMoviesList={savedMovies}
-                onDeleteClick={handleDeleteClick}
-              />
+              <SavedMovies savedMoviesList={SavedMoviesList} />
               <Footer isVisible={true} />
             </>
           }

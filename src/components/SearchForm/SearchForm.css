@@ -1,19 +1,20 @@
 .search-form {
   margin: 70px auto 0;
   padding: 0;
-  border-bottom: 1px solid #e8e8e8;
   display: grid;
-  grid-template-columns: auto max-content;
+  grid-template-columns: auto max-content;  
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .search-form__input {
-  margin: 0 0 13px;
-  padding: 0;
+  margin: 0;
+  padding: 0 0 13px;
   font-size: 28px;
   line-height: 121%;
   font-weight: 500;
   border: none;
-  width: 93%;
+  width: 100%;
+  display: inline-block;
 }
 
 .search-form__input::placeholder {
@@ -25,7 +26,9 @@
 
 .search-form__input:focus {
   outline: none;
+  border-bottom: 1px solid #3456f3;
 }
+
 
 .search-form__submit {
   margin: 0 0 13px 21px;

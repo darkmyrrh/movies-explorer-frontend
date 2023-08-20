@@ -4,34 +4,34 @@ function Portfolio() {
   return (
     <section className="portfolio">
       <h2 className="portfolio__heading">Портфолио</h2>
-      <ul className="potfolio__links">
+      <ul className="portfolio__links">
+        <li className="portfolio__link root__link">
         <a
           href="https://darkmyrrh.github.io/how-to-learn/"
-          className="portfolio__link app__link"
+          className="portfolio__link-text"
           target="_blank"
           rel="noreferrer"
-        >
-          <p className="portfolio__link-text">Статичный сайт</p>
-          <p className="portfolio__link-text">&#129125;</p>
+        >Статичный сайт
         </a>
+        </li>
+        <li className="portfolio__link root__link">
         <a
           href="https://darkmyrrh.github.io/russian-travel/"
-          className="portfolio__link app__link"
+          className="portfolio__link-text"
           target="_blank"
           rel="noreferrer"
-        >
-          <p className="portfolio__link-text">Адаптивный сайт</p>
-          <p className="portfolio__link-text">&#129125;</p>
+        >Адаптивный сайт
         </a>
+        </li>
+        <li className="portfolio__link root__link">
         <a
           href="https://mesto.myrrh.ru"
-          className="portfolio__link app__link"
+          className="portfolio__link-text"
           target="_blank"
           rel="noreferrer"
-        >
-          <p className="portfolio__link-text">Одностраничное приложение</p>
-          <p className="portfolio__link-text">&#129125;</p>
+        >Одностраничное приложение
         </a>
+        </li>
       </ul>
     </section>
   );

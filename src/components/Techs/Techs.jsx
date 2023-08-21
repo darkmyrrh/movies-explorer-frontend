@@ -11,7 +11,7 @@ function Techs() {
           дипломном проекте.
         </p>
         <ul className="techs__list">
-          <li className="techs__list-item root__button">
+          <li className="techs__list-item app__button">
             <a
               href="https://practicum.yandex.ru/blog/zachem-nuzhen-html/"
               target="_blank"
@@ -21,7 +21,7 @@ function Techs() {
               HTML
             </a>
           </li>
-          <li className="techs__list-item root__button">
+          <li className="techs__list-item app__button">
             <a
               href="https://practicum.yandex.ru/blog/chto-takoe-css/"
               target="_blank"
@@ -31,7 +31,7 @@ function Techs() {
               CSS
             </a>
           </li>
-          <li className="techs__list-item root__button">
+          <li className="techs__list-item app__button">
             <a
               href="https://practicum.yandex.ru/blog/chto-takoe-javascript-zachem-nuzhen/"
               target="_blank"
@@ -41,7 +41,7 @@ function Techs() {
               JS
             </a>
           </li>
-          <li className="techs__list-item root__button">
+          <li className="techs__list-item app__button">
             <a
               href="https://react.dev/"
               className="techs__list-link"
@@ -49,7 +49,7 @@ function Techs() {
               React
             </a>
           </li>
-          <li className="techs__list-item root__button">
+          <li className="techs__list-item app__button">
             <a
               href="https://github.com/"
               target="_blank"
@@ -59,7 +59,7 @@ function Techs() {
               Git
             </a>
           </li>
-          <li className="techs__list-item root__button">
+          <li className="techs__list-item app__button">
             <a
               href="https://expressjs.com/ru/"
               target="_blank"
@@ -69,7 +69,7 @@ function Techs() {
               Express.js
             </a>
           </li>
-          <li className="techs__list-item root__button">
+          <li className="techs__list-item app__button">
             <a
               href="https://www.mongodb.com/"
               target="_blank"

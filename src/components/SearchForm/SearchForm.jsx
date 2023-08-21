@@ -11,7 +11,7 @@ function SearchForm(handleSubmit) {
           className="search-form__input"
           required
         />
-        <button type="submit" className="search-form__submit root__button">
+        <button type="submit" className="search-form__submit app__button">
           Найти
         </button>
       </form>

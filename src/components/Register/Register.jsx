@@ -31,6 +31,7 @@ function Register({ onRegister }) {
             type="text"
             className="auth-page__form-input"
             name="name"
+            id="name"
             placeholder="Имя"
             onChange={handleChange}
             value="name"
@@ -43,6 +44,7 @@ function Register({ onRegister }) {
           <input
             type="text"
             name="email"
+            id="email"
             placeholder="E-mail"
             className="auth-page__form-input"
             onChange={handleChange}
@@ -56,6 +58,7 @@ function Register({ onRegister }) {
           <input
             type="password"
             name="password"
+            id="password"
             className="auth-page__form-input auth-page__form-input_error"
             placeholder="**************"
             onChange={handleChange}

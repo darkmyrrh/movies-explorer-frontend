@@ -20,7 +20,7 @@ function AboutMe() {
           </p>
           <a
             href="https://github.com/darkmyrrh/"
-            className="about-me__info-link root__link"
+            className="about-me__info-link app__link"
             target="_blank"
             rel="noreferrer"
           >

@@ -10,18 +10,18 @@
   line-height: 0;
 }
 
-.root__link {
+.app__link {
   transition: opacity 0.3s linear;
 }
 
-.root__link:hover {
+.app__link:hover {
   opacity: 0.7;
 }
 
-.root__button {
+.app__button {
   transition: opacity 0.3s linear;
 }
 
-.root__button:hover {
+.app__button:hover {
   opacity: 0.8;
 }

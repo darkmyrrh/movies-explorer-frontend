@@ -17,7 +17,7 @@ function Footer({ isVisible }) {
               href="https://practicum.yandex.ru/"
               target="_blank"
               rel="noreferrer"
-              className="footer__link root__link"
+              className="footer__link app__link"
             >
               Яндекс.Практикум
             </a>
@@ -27,7 +27,7 @@ function Footer({ isVisible }) {
               href="https://github.com/darkmyrrh/"
               target="_blank"
               rel="noreferrer"
-              className="footer__link root__link"
+              className="footer__link app__link"
             >
               Github
             </a>

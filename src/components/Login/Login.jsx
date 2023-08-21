@@ -38,6 +38,7 @@ function Login({ onLogin }) {
             value="email"
             required
           />
+          <span className="auth-page__error-text"></span>
         </label>
         <label htmlFor="password" className="auth-page__form-label">
           Пароль
@@ -50,6 +51,7 @@ function Login({ onLogin }) {
             value="password"
             required
           />
+          <span className="auth-page__error-text"></span>
         </label>
       </AuthForm>
     </main>

@@ -5,7 +5,7 @@ function Portfolio() {
     <section className="portfolio">
       <h2 className="portfolio__heading">Портфолио</h2>
       <ul className="portfolio__links">
-        <li className="portfolio__link root__link">
+        <li className="portfolio__link app__link">
         <a
           href="https://darkmyrrh.github.io/how-to-learn/"
           className="portfolio__link-text"
@@ -14,7 +14,7 @@ function Portfolio() {
         >Статичный сайт
         </a>
         </li>
-        <li className="portfolio__link root__link">
+        <li className="portfolio__link app__link">
         <a
           href="https://darkmyrrh.github.io/russian-travel/"
           className="portfolio__link-text"
@@ -23,7 +23,7 @@ function Portfolio() {
         >Адаптивный сайт
         </a>
         </li>
-        <li className="portfolio__link root__link">
+        <li className="portfolio__link app__link">
         <a
           href="https://mesto.myrrh.ru"
           className="portfolio__link-text"

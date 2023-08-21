@@ -7,7 +7,7 @@ function MoviesCard({ card, onLikeClick, onDeleteClick }) {
 
   const [isLiked, setIsLiked] = useState(false);
 
-  const likeButtonClassName = `movies-card__like-button root__button ${
+  const likeButtonClassName = `movies-card__like-button app__button ${
     isLiked && "movies-card__like-button_active"
   }`;
 
@@ -38,7 +38,7 @@ function MoviesCard({ card, onLikeClick, onDeleteClick }) {
           <button
             type="button"
             aria-label="Удалить"
-            className="movies-card__delete-button root__button"
+            className="movies-card__delete-button app__button"
             onClick={handleDeleteClick}
           />
         )}

@@ -1,5 +1,5 @@
 import "./AuthPage.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../images/logo.svg";
 
 function AuthForm({
@@ -13,6 +13,12 @@ function AuthForm({
   linkText,
   isDisabled,
 }) {
+
+  const location = useLocation();
+  const submitButtonClassName = `auth-page__submit app__button ${
+    isDisabled ? "auth-page__submit_disabled" : ""
+  } ${location.pathname === '/register' ? "auth-page__submit_type_register" : "auth-page__submit_type_login"}`
+
   return (
     <section className="auth-page">
       <Link to="/">
@@ -24,14 +30,12 @@ function AuthForm({
       </form>
       <button
         type="submit"
-        className={`auth-page__submit root__button ${
-          isDisabled ? "auth-page__submit_disabled" : ""
-        }`}
+        className={submitButtonClassName}
         disabled={isDisabled ? true : false}
       >{`${buttonText}`}</button>
       <p className="auth-page__paragraph">
         {text}
-        <Link className="auth-page__link root__link" to={page}>
+        <Link className="auth-page__link app__link" to={page}>
           {linkText}
         </Link>
       </p>

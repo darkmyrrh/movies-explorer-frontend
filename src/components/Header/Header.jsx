@@ -1,16 +1,16 @@
 import "./Header.css";
-import { useLocation, NavLink, Link } from "react-router-dom";
+import { useLocation, NavLink, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import logo from "../../images/logo.svg";
-import logoLoggedIn from "../../images/logo_logged-in.svg";
 import Sidebar from "../Sidebar/Sidebar";
 
 function Header({ loggedIn, isVisible }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const landingPage = location.pathname === "/";
   const headerClassName = `header ${landingPage ? "header_dark" : ""}`;
 
-  const accountButtonClassName = `header__account-button root__button ${
+  const accountButtonClassName = `header__account-button app__button ${
     landingPage ? "header__account-button_green" : ""
   }`;
 
@@ -22,6 +22,13 @@ function Header({ loggedIn, isVisible }) {
   function closeSidebar() {
     setIsSidebarOpened(false);
   }
+  function handleProfileButtonClick () {
+    navigate("/profile", { replace: true })
+  }
+  function handleLoginButtonClick () {
+    navigate("/login", { replace: true })
+  }
+
   if (!isVisible) {
     return null;
   }
@@ -29,16 +36,16 @@ function Header({ loggedIn, isVisible }) {
   return (
     <header className={headerClassName}>
       <div className="header__container">
+        <Link to="/" className="header__link app__link">
+          <img src={logo} alt="логотип" className="header__logo" />
+        </Link>
         {loggedIn ? (
           <>
-            <Link to="/" className="header__link root__link">
-              <img src={logoLoggedIn} alt="логотип" className="header__logo" />
-            </Link>
             <ul className="header__nav">
               <li>
                 <NavLink
                   className={({ isActive }) =>
-                    `root__link header__link ${
+                    `app__link header__link ${
                       landingPage ? "" : "header__link_black"
                     } ${isActive && "header__link_active"}`
                   }
@@ -50,7 +57,7 @@ function Header({ loggedIn, isVisible }) {
               <li>
                 <NavLink
                   className={({ isActive }) =>
-                    `root__link header__link ${
+                    `app__link header__link ${
                       landingPage ? "" : "header__link_black"
                     } ${isActive && "header__link_active"}`
                   }
@@ -60,13 +67,15 @@ function Header({ loggedIn, isVisible }) {
                 </NavLink>
               </li>
             </ul>
-            <Link to="/profile">
-              <button type="button" className={accountButtonClassName}>
-                Аккаунт
-              </button>
-            </Link>
             <button
-              className={`header__burger-menu root__button ${
+              type="button"
+              className={accountButtonClassName}
+              onClick={handleProfileButtonClick}
+            >
+              Аккаунт
+            </button>
+            <button
+              className={`header__burger-menu app__button ${
                 landingPage ? "header__burger-menu_white" : ""
               }`}
               onClick={openSidebar}
@@ -74,23 +83,16 @@ function Header({ loggedIn, isVisible }) {
             <Sidebar isOpened={isSidebarOpened} onCloseSidebar={closeSidebar} />
           </>
         ) : (
-          <>
-            <Link to="/" className="header__link root__link">
-              <img src={logo} alt="логотип" className="header__logo" />
-            </Link>
-            <ul className="header__buttons">
-              <li>
-                <Link to="/register" className="header__link root__link">
-                  Регистрация
-                </Link>
-              </li>
-              <li>
-                <Link to="/login">
-                  <button className="header__button root__button">Войти</button>
-                </Link>
-              </li>
-            </ul>
-          </>
+          <ul className="header__buttons">
+            <li>
+              <Link to="/register" className="header__link app__link">
+                Регистрация
+              </Link>
+            </li>
+            <li>
+              <button className="header__button app__button" onClick={handleLoginButtonClick}>Войти</button>
+            </li>
+          </ul>
         )}
       </div>
     </header>

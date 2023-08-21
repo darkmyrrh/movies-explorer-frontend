@@ -3,7 +3,7 @@
   padding: 0;
   min-width: 270px;
   display: grid;
-  grid-template-columns: 1fr min-content;
+  grid-template-columns: 1fr max-content;
   grid-template-rows: auto 1fr min-content;
   justify-content: left;
   cursor: pointer;
@@ -79,9 +79,6 @@
 }
 
 @media all and (max-width: 954px) {
-  .movies-card {
-    min-width: 339px;
-  }
   .movies-card__title {
     max-width: 295px;
     margin-bottom: 28px;
@@ -89,9 +86,7 @@
 }
 
 @media all and (max-width: 765px) {
-  .movies-card {
-    min-width: 300px;
-  }
+  
   .movies-card__title {
     max-width: 240px;
     font-size: 12px;

@@ -1,0 +1,174 @@
+.header {
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+}
+
+.header_dark {
+  background-color: #073042;
+}
+
+.header__container {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1140px;
+  display: flex;
+  justify-content: space-between;
+  max-height: 74px;
+}
+
+.header__logo {
+  margin: 18px 0;
+  padding: 0;
+  width: 38px;
+  height: 38px;
+}
+
+.header__nav {
+  margin: 0;
+  margin-left: 63px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.header__buttons {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+}
+
+.header__link {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 133%;
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header__link_black {
+  color: black;
+  font-weight: 400;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 138px;
+}
+.header__link_active {
+  font-weight: 500;
+}
+
+.header__button {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 133%;
+  font-weight: 500;
+  color: black;
+  min-width: 76px;
+  min-height: 32px;
+  background-color: #2be080;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.header__account-button {
+  margin: 21px 0;
+  padding: 9.5px 11px;
+  background-color: white;
+  min-width: 100px;
+  min-height: 32px;
+  font-size: 13px;
+  line-height: 92%;
+  font-weight: 500;
+  text-align: left;
+  background-image: url(../../images/account-logo.svg);
+  background-position: 71px;
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header__account-button_green {
+  background-color: #2be080;
+  box-shadow: none;
+}
+
+.header__burger-menu {
+  display: none;
+  margin: 15px 0 0;
+  padding: 7px 0;
+  height: 44px;
+  width: 44px;
+  background: none;
+  background-image: url(../../images/header-menu.svg);
+  background-repeat: no-repeat;
+  background-size: 28px;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+}
+
+.header__burger-menu_white {
+  background-image: url(../../images/header-menu-white.svg);
+}
+
+@media all and (max-width: 1279px) {
+  .header__container {
+    width: 89%;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .header__container {
+    width: 92%;
+  }
+  .header__nav {
+    display: none;
+  }
+
+  .header__account-button {
+    display: none;
+  }
+
+  .header__burger-menu {
+    display: initial;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .header__container {
+    width: 91%;
+  }
+  .header__button {
+    padding: 5px 12px;
+    font-size: 10px;
+    line-height: 160%;
+    min-width: 54px;
+    min-height: 26px;
+  }
+  .header__buttons {
+    column-gap: 14px;
+  }
+  .header__link {
+    font-size: 10px;
+    line-height: 160%;
+  }
+  .header__burger-menu {
+    width: 40px;
+    height: 43px;
+    background-size: 22px 20.5px;
+  }
+}

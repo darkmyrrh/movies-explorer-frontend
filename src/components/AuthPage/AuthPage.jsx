@@ -4,19 +4,18 @@ import logo from "../../images/logo.svg";
 
 function AuthForm({
   name,
-  onSubmit,
   greetingText,
   children,
   buttonText,
   text,
   page,
   linkText,
-  isDisabled,
+  isValid,
+  onSubmit
 }) {
-
   const location = useLocation();
   const submitButtonClassName = `auth-page__submit app__button ${
-    isDisabled ? "auth-page__submit_disabled" : ""
+    isValid ? "" : "auth-page__submit_disabled"
   } ${location.pathname === '/register' ? "auth-page__submit_type_register" : "auth-page__submit_type_login"}`
 
   return (
@@ -25,13 +24,13 @@ function AuthForm({
         <img src={logo} alt="Логотип" className="auth-page__logo" />
       </Link>
       <h1 className="auth-page__greeting">{greetingText}</h1>
-      <form className="auth-page__form" name={`${name}`} onSubmit={onSubmit}>
+      <form className="auth-page__form" name={`${name}`} noValidate>
         {children}
       </form>
       <button
         type="submit"
         className={submitButtonClassName}
-        disabled={isDisabled ? true : false}
+        onClick={onSubmit}
       >{`${buttonText}`}</button>
       <p className="auth-page__paragraph">
         {text}

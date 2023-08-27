@@ -1,22 +1,49 @@
 import "./Profile.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useFormValidation } from "../../hooks/useFormValidation";
 
-function Profile({ onSubmit, onExit }) {
-  const [isSubmitVisible, setIsSubmitVisible] = useState(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+function Profile({ onUpdateUser, onExit, isLoading }) {
+  const currentUser = useContext(CurrentUserContext);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+  });
 
-  const submitClassName = `profile__submit app__button ${
-    isSubmitDisabled && "profile__submit_disabled"
-  }`;
+  const [isSubmitVisible, setIsSubmitVisible] = useState(false);  
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  const handleChange = () => {
-    setIsSubmitDisabled(false);
+  const { validateFormData, onBlurInput, errors } = useFormValidation(formData);
+
+  const handleChange = (e) => {
+    const formField = e.target.name;
+    const updatedFormData = {
+      ...formData,
+      [formField]: e.target.value,
+    };
+    if (errors[formField].focused) {
+      setFormData({
+        formData,
+        errors,
+        formField,
+      });
+      setIsFormValid(false);
+    }
+    setFormData(updatedFormData);
   };
-  const handleSubmit = (e) => {
+
+  function handleSubmit(e) {
     e.preventDefault();
-    onSubmit();
-    setIsSubmitDisabled(true);
-  };
+    const { isValid } = validateFormData({
+      formData,
+      errors,
+      applyInputFocused: true,
+      isSubmitDisabled: false,
+    });    if (isValid) {
+      setIsFormValid(true);
+    } else return
+    onUpdateUser(formData.name, formData.email);
+  }
 
   function enableEditing() {
     setIsSubmitVisible(true);
@@ -24,44 +51,69 @@ function Profile({ onSubmit, onExit }) {
 
   return (
     <section className="profile">
-      <h2 className="profile__title">Привет, Виталий!</h2>
-      <form className="profile__form" onSubmit={handleSubmit}>
-        <label htmlFor="name" className="profile__label">
+      <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+      <form className="profile__form" noValidate>
+        <label
+          htmlFor="name"
+          className={`profile__label ${
+            errors.name.message && "profile__label_error"
+          }`}
+        >
           Имя
           <input
             type="text"
-            placeholder="Виталий"
-            className="profile__input"
+            placeholder={currentUser.name}
+            className={`profile__input ${
+              errors.name.message && "profile__input_error"
+            }`}
             name="name"
             id="name"
             disabled={isSubmitVisible ? false : true}
             required
             onChange={handleChange}
-            value="Виталий"
+            value={formData.name || currentUser.name || ""}
+            onBlur={onBlurInput}
           />
         </label>
-        <label htmlFor="email" className="profile__label">
+        {errors.name.message && (
+          <span className="profile__error-text">{errors.name.message}</span>
+        )}
+        <label
+          htmlFor="email"
+          className={`profile__label ${
+            !!errors.email.message && "profile__label_error"
+          }`}
+        >
           E-mail
           <input
             type="text"
-            placeholder="test@test.ru"
-            className="profile__input"
+            placeholder={currentUser.email}
+            className={`profile__input ${
+              !!errors.email.message && "profile__input_error"
+            }`}
             name="email"
             id="email"
             disabled={isSubmitVisible ? false : true}
             required
             onChange={handleChange}
-            value="test@test.ru"
+            value={formData.email || currentUser.email || ""}
+            onBlur={onBlurInput}
           />
         </label>
+        {!!errors.email.message && (
+          <span className="profile__error-text">{errors.email.message}</span>
+        )}
       </form>
       {isSubmitVisible ? (
         <button
           type="submit"
-          className={submitClassName}
-          disabled={isSubmitDisabled ? true : false}
+          className={`profile__submit ${
+            isFormValid ? "" : "profile__submit_disabled"
+          }`}
+          onClick={handleSubmit}
+          disabled={isFormValid ? false : true}
         >
-          Сохранить
+          {isLoading ? "Сохранение" : "Сохранить"}
         </button>
       ) : (
         <ul className="profile__links">

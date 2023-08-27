@@ -2,7 +2,7 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import useResize from "../../hooks/useResize";
 
-function MoviesCardList({ cards, isLiked, onLikeClick, onDeleteClick }) {
+function MoviesCardList({ cards, isLiked, onLikeClick, onDeleteClick, savedMovies }) {
   const { isScreenLarge, isScreenMedium } = useResize();
   let num;
   function getCardsNumber() {
@@ -18,11 +18,12 @@ function MoviesCardList({ cards, isLiked, onLikeClick, onDeleteClick }) {
     .slice(0, getCardsNumber(num))
     .map((card) => (
       <MoviesCard
-        key={card._id}
+        key={card.id}
         card={card}
         isLiked={isLiked}
         onLikeClick={onLikeClick}
         onDeleteClick={onDeleteClick}
+        savedMovies={savedMovies}
       />
     ));
 

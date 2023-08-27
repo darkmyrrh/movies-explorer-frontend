@@ -15,12 +15,14 @@
   width: 100%;
   object-fit: cover;
   grid-column: span 2;
+  aspect-ratio: 16 / 9;
 }
 
 .movies-card__title {
   margin: 14px 0 13px;
   padding: 0;
   max-width: 226px;
+  min-height: 32px;
   font-style: normal;
   font-weight: 500;
   font-size: 13px;

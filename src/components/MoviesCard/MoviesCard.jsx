@@ -1,36 +1,54 @@
 import "./MoviesCard.css";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { MOVIES_BASE_URL } from "../../utils/constants";
 
-function MoviesCard({ card, onLikeClick, onDeleteClick }) {
+function MoviesCard({ card, onLikeClick, onDeleteClick, savedMovies }) {
   const location = useLocation();
 
-  const [isLiked, setIsLiked] = useState(false);
+  const isLiked = savedMovies.some((item) => item.movieId === card.id);
 
-  const likeButtonClassName = `movies-card__like-button app__button ${
-    isLiked && "movies-card__like-button_active"
-  }`;
+
 
   function handleLikeClick() {
     onLikeClick(card);
-    setIsLiked(!isLiked);
   }
 
   function handleDeleteClick() {
     onDeleteClick(card);
   }
 
+  function getTimeFromMins(mins) {
+    let hours = Math.trunc(mins / 60);
+    let minutes = mins % 60;
+    return hours + "ч. " + minutes + "м.";
+  }
+
   return (
     <li>
       <article className="movies-card">
-        <img src={card.image} alt={card.name} className="movies-card__image" />
-        <h2 className="movies-card__title">{card.name}</h2>
+        {location.pathname === "/movies" && (
+          <img
+            src={`${MOVIES_BASE_URL}${card.image.url}`}
+            alt={card.image.name}
+            className="movies-card__image"
+          />
+        )}
+        {location.pathname === "/saved-movies" && (
+          <img
+            src={card.image}
+            alt={card.nameRU}
+            className="movies-card__image"
+          />
+        )}
+        <h2 className="movies-card__title">{card.nameRU}</h2>
 
         {location.pathname === "/movies" && (
           <button
             type="button"
             aria-label="Нравится"
-            className={likeButtonClassName}
+            className={`movies-card__like-button app__button ${
+              isLiked && "movies-card__like-button_active"
+            }`}
             onClick={handleLikeClick}
           />
         )}
@@ -42,7 +60,9 @@ function MoviesCard({ card, onLikeClick, onDeleteClick }) {
             onClick={handleDeleteClick}
           />
         )}
-        <p className="movies-card__duration">{card.duration}</p>
+        <p className="movies-card__duration">
+          {getTimeFromMins(card.duration)}
+        </p>
       </article>
     </li>
   );

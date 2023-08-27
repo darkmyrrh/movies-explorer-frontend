@@ -49,6 +49,7 @@
   line-height: 121%;
   border: none;
   border-bottom: 1px solid #e8e8e8;
+  background: none;
 }
 
 .auth-page__form-input_error {
@@ -67,6 +68,7 @@
 .auth-page__form-input:focus {
   outline: none;
   border-bottom: 1px solid #3456f3;
+  background: none;
 }
 .auth-page__form-input::placeholder {
   -webkit-placeholder-opacity: 1;

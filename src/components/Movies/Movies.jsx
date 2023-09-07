@@ -12,6 +12,7 @@ function Movies({ onLikeClick, savedMovies }) {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [foundMovies, setFoundMovies] = useState([]);
+  const [allFoundMovies, setAllFoundMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isShort, setIsShort] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -94,6 +95,7 @@ function Movies({ onLikeClick, savedMovies }) {
       setNothingFound(true);
     } else {
       setAllCardsNumber(results.length);
+      setAllFoundMovies(results);
       setFoundMovies(results.slice(0, cardNumber));
       setIsLoading(false);
       setNothingFound(false);
@@ -105,7 +107,7 @@ function Movies({ onLikeClick, savedMovies }) {
 
   function filterMoviesByDuration() {
     if (isShort) {
-      const shortMovies = foundMovies.filter((movie) => movie.duration < 40);
+      const shortMovies = allFoundMovies.filter((movie) => movie.duration < 40);
       if (shortMovies.length === 0) {
         setFilteredMovies([]);
       } else {

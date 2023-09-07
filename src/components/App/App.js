@@ -13,13 +13,11 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import InfoToolTip from "../InfoTooltip/InfoTooltip";
-import * as MoviesApi from "../../utils/MoviesApi";
 import * as MainApi from "../../utils/MainApi";
 import { MOVIES_BASE_URL } from "../../utils/constants";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [currentUser, setСurrentUser] = useState({});
   const [userEmail, setUserEmail] = useState("");
@@ -125,10 +123,8 @@ function App() {
       Promise.all([
         MainApi.getUserDetails(),
         MainApi.getSavedMovies(),
-        MoviesApi.getMovies(),
       ])
         .then(([userInfo, savedMovies, movies]) => {
-          setMovies(movies);
           setSavedMovies(savedMovies);
           setСurrentUser(userInfo);
           console.log(savedMovies);
@@ -160,7 +156,8 @@ function App() {
         })
         .catch((err) => console.log(err));
     } else {
-      handleDeleteSavedMovie(movie);
+      const savedMovie = savedMovies.find((item) => item.movieId === movie.id);
+      handleDeleteSavedMovie(savedMovie);
     }
   }
 
@@ -177,6 +174,12 @@ function App() {
   function closeInfoToolTip() {
     setInfoToolTipOpen(false);
   }
+
+  // function filterShortMovies() {
+  //   const shortMoviesList = moviesList.filter((movie) => movie.duration <= 40);
+  //   setIsShort(true);
+  //   return shortMoviesList;
+  // }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -243,9 +246,8 @@ function App() {
                   <>
                     <Header loggedIn={loggedIn} isVisible={true} />
                     <Movies
-                      moviesList={movies}
-                      onLikeClick={handleLikeClick}
                       savedMovies={savedMovies}
+                      onLikeClick={handleLikeClick}
                     />
                     <Footer isVisible={true} />
                   </>

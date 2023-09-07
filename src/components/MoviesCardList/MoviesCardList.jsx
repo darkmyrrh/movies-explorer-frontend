@@ -2,25 +2,19 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import useResize from "../../hooks/useResize";
 
-function MoviesCardList({ cards, isLiked, onLikeClick, onDeleteClick, savedMovies }) {
-  const { isScreenLarge, isScreenMedium } = useResize();
-  let num;
-  function getCardsNumber() {
-    if (isScreenLarge) {
-      return (num = 16);
-    } else if (isScreenMedium) {
-      return (num = 8);
-    } else {
-      return (num = 5);
-    }
-  }
-  const cardElements = cards
-    .slice(0, getCardsNumber(num))
-    .map((card) => (
+function MoviesCardList({
+  cards,
+  onLikeClick,
+  onDeleteClick,
+  savedMovies,
+  nothingFound,
+}) {
+  
+  const cardElements = cards    
+    .map((card, id) => (
       <MoviesCard
-        key={card.id}
+        key={id}
         card={card}
-        isLiked={isLiked}
         onLikeClick={onLikeClick}
         onDeleteClick={onDeleteClick}
         savedMovies={savedMovies}
@@ -28,11 +22,14 @@ function MoviesCardList({ cards, isLiked, onLikeClick, onDeleteClick, savedMovie
     ));
 
   return (
-    <section className="movies-cardlist">
-      <ul className="movies-cardlist__movies-grid">
-        {cardElements}
-      </ul>
-    </section>
+    <>
+      {nothingFound ? (
+        <span className="movies__not-found-error">Ничего не найдено</span>
+      ) : (
+        <ul className="movies-cardlist">{cardElements}</ul>
+      )}
+      ;
+    </>
   );
 }
 

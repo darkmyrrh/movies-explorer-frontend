@@ -19,6 +19,7 @@ function useResize() {
   }, []);
 
   return {
+    width,
     isScreenSmall: width >= SCREEN_SMALL,
     isScreenMedium: width >= SCREEN_MEDIUM,
     isScreenLarge: width >= SCREEN_LARGE,

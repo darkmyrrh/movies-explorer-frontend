@@ -46,7 +46,7 @@ function App() {
             );
           };
         } else {
-          navigate("/login", { replace: true });
+          navigate("/", { replace: true });
         }
       })
       .catch((err) => {
@@ -114,9 +114,12 @@ function App() {
   const handleLogout = () => {
     MainApi.signout().then(() => {
       setLoggedIn(false);
+      
       navigate("/", { replace: true });
     });
   };
+
+
 
   useEffect(() => {
     if (loggedIn) {
@@ -124,16 +127,16 @@ function App() {
         MainApi.getUserDetails(),
         MainApi.getSavedMovies(),
       ])
-        .then(([userInfo, savedMovies, movies]) => {
-          setSavedMovies(savedMovies);
+        .then(([userInfo, savedMovies]) => {          
           setСurrentUser(userInfo);
-          console.log(savedMovies);
+          const isOwn = savedMovies.filter((movie) => movie.owner._id === currentUser._id);
+          setSavedMovies(isOwn);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [loggedIn]);
+  }, [loggedIn, currentUser._id]);
 
   function handleLikeClick(movie) {
     const isMovieSaved = savedMovies.some((item) => item.movieId === movie.id);
@@ -175,11 +178,6 @@ function App() {
     setInfoToolTipOpen(false);
   }
 
-  // function filterShortMovies() {
-  //   const shortMoviesList = moviesList.filter((movie) => movie.duration <= 40);
-  //   setIsShort(true);
-  //   return shortMoviesList;
-  // }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

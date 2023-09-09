@@ -26,6 +26,7 @@ function Movies({ onLikeClick, savedMovies }) {
     MoviesApi.getMovies().then((data) => {
       setMovies(data);
       localStorage.setItem("InitialMoviesArray", JSON.stringify(data));
+      console.log(data)
     });
   }
 
@@ -110,11 +111,16 @@ function Movies({ onLikeClick, savedMovies }) {
       const shortMovies = allFoundMovies.filter((movie) => movie.duration < 40);
       if (shortMovies.length === 0) {
         setFilteredMovies([]);
+        setNothingFound(true);
       } else {
         setNothingFound(false);
         setFilteredMovies(shortMovies);
       }
       localStorage.setItem("SavedShortsSearch", JSON.stringify(shortMovies));
+    }
+    else {
+      setNothingFound(false);
+      setIsShort(false);
     }
   }
 

@@ -7,8 +7,6 @@ function MoviesCard({ card, onLikeClick, onDeleteClick, savedMovies }) {
 
   const isLiked = savedMovies.some((item) => item.movieId === card.id);
 
-
-
   function handleLikeClick() {
     onLikeClick(card);
   }
@@ -26,20 +24,27 @@ function MoviesCard({ card, onLikeClick, onDeleteClick, savedMovies }) {
   return (
     <li>
       <article className="movies-card">
-        {location.pathname === "/movies" && (
-          <img
-            src={`${MOVIES_BASE_URL}${card.image.url}`}
-            alt={card.image.name}
-            className="movies-card__image"
-          />
-        )}
-        {location.pathname === "/saved-movies" && (
-          <img
-            src={card.image}
-            alt={card.nameRU}
-            className="movies-card__image"
-          />
-        )}
+        <a
+          href={card.trailerLink}
+          className="movies-card__link"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {location.pathname === "/movies" && (
+            <img
+              src={`${MOVIES_BASE_URL}${card.image.url}`}
+              alt={card.image.name}
+              className="movies-card__image"
+            />
+          )}
+          {location.pathname === "/saved-movies" && (
+            <img
+              src={card.image}
+              alt={card.nameRU}
+              className="movies-card__image"
+            />
+          )}
+        </a>
         <h2 className="movies-card__title">{card.nameRU}</h2>
 
         {location.pathname === "/movies" && (

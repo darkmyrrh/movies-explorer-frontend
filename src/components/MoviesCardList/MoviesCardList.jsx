@@ -1,6 +1,5 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import useResize from "../../hooks/useResize";
 
 function MoviesCardList({
   cards,

@@ -1,12 +1,22 @@
 import "./Profile.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../hooks/useFormValidation";
+import { nameValidation, emailValidation } from "../../utils/formValidationRules";
 
 function Profile({ onUpdateUser, onExit, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
-  const { values, handleChange, errors, isValid, resetForm } =
+  const { values, handleChange, errors, isValid, resetForm, setValues } =
     useFormWithValidation({});
+    const nameErrorMessage = nameValidation(values.name);
+    const emailErrorMessage = emailValidation(values.email);
+
+    useEffect(() => {
+      setValues({ name: currentUser.name, email: currentUser.email });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser]);
+  
+  
 
 
   const [isSubmitVisible, setIsSubmitVisible] = useState(false);
@@ -14,8 +24,9 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
   
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateUser(values);
+    onUpdateUser(values.name, values.email);
     resetForm();
+    setIsSubmitVisible(false);
   }
 
   function enableEditing() {
@@ -29,7 +40,7 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
         <label
           htmlFor="name"
           className={`profile__label ${
-            errors.name.message && "profile__label_error"
+            errors.name && "profile__label_error"
           }`}
         >
           Имя
@@ -37,7 +48,7 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
             type="text"
             placeholder={currentUser.name}
             className={`profile__input ${
-              errors.name.message && "profile__input_error"
+              errors.name && "profile__input_error"
             }`}
             name="name"
             id="name"
@@ -47,13 +58,11 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
             value={values.name || currentUser.name || ""}
           />
         </label>
-        {errors.name.message && (
-          <span className="profile__error-text">{errors.name.message}</span>
-        )}
+        <span className="profile__error-text">{nameErrorMessage}</span>
         <label
           htmlFor="email"
           className={`profile__label ${
-            !!errors.email.message && "profile__label_error"
+            errors.email && "profile__label_error"
           }`}
         >
           E-mail
@@ -61,7 +70,7 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
             type="text"
             placeholder={currentUser.email}
             className={`profile__input ${
-              !!errors.email.message && "profile__input_error"
+              errors.email && "profile__input_error"
             }`}
             name="email"
             id="email"
@@ -71,9 +80,7 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
             value={values.email || currentUser.email || ""}
           />
         </label>
-        {!!errors.email.message && (
-          <span className="profile__error-text">{errors.email.message}</span>
-        )}
+        <span className="profile__error-text">{emailErrorMessage}</span>
       </form>
       {isSubmitVisible ? (
         <button

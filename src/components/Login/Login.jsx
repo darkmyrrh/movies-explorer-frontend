@@ -1,15 +1,17 @@
 import "./Login.css";
-import { useState } from "react";
 import { useFormWithValidation } from "../../hooks/useFormValidation";
+import { emailValidation, passwordValidation } from "../../utils/formValidationRules";
 import AuthForm from "../AuthPage/AuthPage";
 
 function Login({ onLogin, isLoading }) {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({});
+    const emailErrorMessage = emailValidation(values.email);
+    const passwordErrorMessage = passwordValidation(values.password);
 
   function handleSubmit(e) {
     e.preventDefault();
-    onLogin(values);
+    onLogin(values.email, values.password);
     resetForm();
   }
 
@@ -33,13 +35,13 @@ function Login({ onLogin, isLoading }) {
             id="email"
             placeholder="E-mail"
             className={`auth-page__form-input  ${
-              !!errors.email.message && "auth-page__form-input_error"
+              errors.email && "auth-page__form-input_error"
             }`}
             value={values.email || ""}
             onChange={handleChange}
             required
           />
-          <span className="auth-page__error-text">{errors.email.message}</span>
+          <span className="auth-page__error-text">{emailErrorMessage}</span>
         </label>
         <label htmlFor="password" className="auth-page__form-label">
           Пароль
@@ -48,7 +50,7 @@ function Login({ onLogin, isLoading }) {
             name="password"
             id="password"
             className={`auth-page__form-input  ${
-              !!errors.password.message && "auth-page__form-input_error"
+              errors.password && "auth-page__form-input_error"
             }`}
             placeholder="******"
             value={values.password || ""}
@@ -56,7 +58,7 @@ function Login({ onLogin, isLoading }) {
             required
           />
           <span className="auth-page__error-text">
-            {errors.password.message}
+            {passwordErrorMessage}
           </span>
         </label>
       </AuthForm>

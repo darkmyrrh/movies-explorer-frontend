@@ -7,7 +7,7 @@ import * as MoviesApi from "../../utils/MoviesApi";
 import useResize from "../../hooks/useResize";
 
 function Movies({ onLikeClick, savedMovies }) {
-  const { isScreenLarge, isScreenMedium, isScreenSmall, width } = useResize();
+  const { isScreenLarge, isScreenMedium, width } = useResize();
 
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -23,12 +23,14 @@ function Movies({ onLikeClick, savedMovies }) {
 
   function getInitialMovies() {
     setIsLoading(true);
-    MoviesApi.getMovies().then((data) => {
-      setMovies(data);
-      localStorage.setItem("InitialMoviesArray", JSON.stringify(data));
-    }).catch((err) => {
-      console.log(err);
-    });
+    MoviesApi.getMovies()
+      .then((data) => {
+        setMovies(data);
+        localStorage.setItem("InitialMoviesArray", JSON.stringify(data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   useEffect(() => {
@@ -51,26 +53,26 @@ function Movies({ onLikeClick, savedMovies }) {
     const savedShortsSearch = localStorage.getItem("SavedShortsSearch");
     const savedCheckbox = localStorage.getItem("SavedCheckboxState");
     const savedSearchRequest = localStorage.getItem("SearchRequest");
-    if (savedResults && savedSearchRequest && savedCheckbox === true) {
-      setFoundMovies(JSON.parse(savedResults).slice(0, cardNumber));
-      setSearchQuery(JSON.parse(savedSearchRequest));
-      setIsShort(JSON.parse(savedCheckbox));
-      setFilteredMovies(JSON.parse(savedShortsSearch));
-      setIsLoading(false);
-      if (savedResults.length > cardNumber || savedShortsSearch.length > cardNumber ) {
-        setIsButtonVisible(true);
-        if (cardNumber >= allCardsNumber) {
-          setIsButtonVisible(false);
-        }
-      } else {
+    if (!savedResults) {
+      setIsLoading(true);
+    } else {
+
+    setFoundMovies(JSON.parse(savedResults).slice(0, cardNumber));
+    setSearchQuery(JSON.parse(savedSearchRequest));
+    setIsShort(JSON.parse(savedCheckbox));
+    setFilteredMovies(JSON.parse(savedShortsSearch));
+    setIsLoading(false);
+    if (
+      savedResults.length > cardNumber ||
+      savedShortsSearch.length > cardNumber
+    ) {
+      setIsButtonVisible(true);
+      if (cardNumber >= allCardsNumber) {
         setIsButtonVisible(false);
       }
-    }
-    else {
-      setIsLoading(true);
-    }
-    
-    
+    } else {
+      setIsButtonVisible(false);
+    }}
   }, [cardNumber, allCardsNumber, nothingFound]);
 
   useEffect(() => {
@@ -102,7 +104,7 @@ function Movies({ onLikeClick, savedMovies }) {
       setIsLoading(false);
       setNothingFound(false);
       localStorage.setItem("SavedSearch", JSON.stringify(results));
-      localStorage.setItem("SearchRequest", JSON.stringify(searchQuery));      
+      localStorage.setItem("SearchRequest", JSON.stringify(searchQuery));
       localStorage.setItem("SavedCheckboxState", JSON.stringify(isShort));
     }
   }
@@ -118,8 +120,7 @@ function Movies({ onLikeClick, savedMovies }) {
         setFilteredMovies(shortMovies);
       }
       localStorage.setItem("SavedShortsSearch", JSON.stringify(shortMovies));
-    }
-    else {
+    } else {
       setNothingFound(false);
       setIsShort(false);
     }

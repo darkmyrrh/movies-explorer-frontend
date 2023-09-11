@@ -20,13 +20,14 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   const [currentUser, setСurrentUser] = useState({});
-  const [userEmail, setUserEmail] = useState("");
   const [renderUserUpdateLoading, setRenderUserUpdateLoading] = useState(false);
   const [renderUserRegisterLoading, setRenderUserRegisterLoading] =
     useState(false);
   const [renderUserLoginLoading, setRenderUserLoginLoading] = useState(false);
   const [isInfoToolTipOpen, setInfoToolTipOpen] = useState(false);
-  const [isRegistrationSuccessful, setRegistrationSuccessful] = useState(false);
+  const [isSuccessful, setIsSuccessful] = useState(false);
+  const [successMessage, setSuccessMesage] = useState("");
+  const [failedMessage, setFailedMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -34,7 +35,6 @@ function App() {
     MainApi.checkToken()
       .then((res) => {
         if (res) {
-          setUserEmail(res.email);
           setLoggedIn(true);
           navigate(
             JSON.parse(window.sessionStorage.getItem("lastRoute") || "{}")
@@ -63,12 +63,14 @@ function App() {
     MainApi.register(name, email, password)
       .then((res) => {
         setInfoToolTipOpen(true);
-        setRegistrationSuccessful(true);
+        setSuccessMesage("Пользователь успешно зарегистрирован");
+        setIsSuccessful(true);
         navigate("/login", { replace: true });
       })
       .catch((err) => {
         setInfoToolTipOpen(true);
-        setRegistrationSuccessful(false);
+        setIsSuccessful(false);
+        setFailedMessage(err.message);
         console.log(err);
       })
       .finally(() => {
@@ -83,13 +85,14 @@ function App() {
     }
     MainApi.authorize(email, password)
       .then(() => {
-        setUserEmail(email);
         setLoggedIn(true);
         navigate("/movies", { replace: true });
       })
       .catch((err) => {
         console.log(err);
         setInfoToolTipOpen(true);
+        setIsSuccessful(false);
+        setFailedMessage(err.message);
         setLoggedIn(false);
       })
       .finally(() => {
@@ -97,14 +100,20 @@ function App() {
       });
   };
 
-  function handleUpdateUser(data) {
+  function handleUpdateUser(name, email) {
     setRenderUserUpdateLoading(true);
-    MainApi.changeUserDetails(data)
+    MainApi.changeUserDetails(name, email)
       .then((info) => {
-        setСurrentUser(info);
+        setСurrentUser(info.name, info.email);
+        setInfoToolTipOpen(true);
+        setSuccessMesage("Данные успешно изменены");
+        setIsSuccessful(true);
       })
       .catch((err) => {
         console.log(err);
+        setInfoToolTipOpen(true);
+        setIsSuccessful(false);
+        setFailedMessage(err.message);
       })
       .finally(() => {
         setRenderUserUpdateLoading(false);
@@ -112,30 +121,32 @@ function App() {
   }
 
   const handleLogout = () => {
-    MainApi.signout().then(() => {
-      setLoggedIn(false);
-      localStorage.clear("SavedSearch");
-      localStorage.clear('SearchRequest');
-      localStorage.clear("SavedCheckboxState");
-      localStorage.clear("SavedShortsSearch");
-      localStorage.clear("InitialMoviesArray");      
-      navigate("/", { replace: true });
-    }).catch((err) => {
-      console.log(err);
-    });
+    MainApi.signout()
+      .then(() => {
+        setLoggedIn(false);
+        localStorage.clear("SavedSearch");
+        localStorage.clear("SearchRequest");
+        localStorage.clear("SavedCheckboxState");
+        localStorage.clear("SavedShortsSearch");
+        localStorage.clear("InitialMoviesArray");
+        navigate("/", { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);        
+        setInfoToolTipOpen(true);
+        setIsSuccessful(false);
+        setFailedMessage(err.message);
+      });
   };
-
-
 
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([
-        MainApi.getUserDetails(),
-        MainApi.getSavedMovies(),
-      ])
-        .then(([userInfo, savedMovies]) => {          
+      Promise.all([MainApi.getUserDetails(), MainApi.getSavedMovies()])
+        .then(([userInfo, savedMovies]) => {
           setСurrentUser(userInfo);
-          const isOwn = savedMovies.filter((movie) => movie.owner._id === currentUser._id);
+          const isOwn = savedMovies.filter(
+            (movie) => movie.owner._id === currentUser._id
+          );
           setSavedMovies(isOwn);
         })
         .catch((err) => {
@@ -162,8 +173,16 @@ function App() {
       })
         .then((savedMovie) => {
           setSavedMovies([savedMovie, ...savedMovies]);
+          setInfoToolTipOpen(true)
+          setIsSuccessful(true)
+          setSuccessMesage("Фильм успешно добавлен");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err)
+          setInfoToolTipOpen(true);
+          setIsSuccessful(false);
+          setFailedMessage(err.message);
+        });
     } else {
       const savedMovie = savedMovies.find((item) => item.movieId === movie.id);
       handleDeleteSavedMovie(savedMovie);
@@ -177,21 +196,30 @@ function App() {
           return item._id !== movie._id;
         })
       );
-    });
+      setInfoToolTipOpen(true)
+          setIsSuccessful(true)
+          setSuccessMesage("Фильм успешно удален");
+    }).catch((err) => {
+          console.log(err)
+          setInfoToolTipOpen(true);
+          setIsSuccessful(false);
+          setFailedMessage(err.message);
+        });
   }
 
   function closeInfoToolTip() {
     setInfoToolTipOpen(false);
   }
 
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
         <InfoToolTip
           isOpen={isInfoToolTipOpen}
-          isSuccessful={isRegistrationSuccessful}
+          isSuccessful={isSuccessful}
           onClose={closeInfoToolTip}
+          successMessage={successMessage}
+          failedMessage={failedMessage}
         />
         <Routes>
           <Route

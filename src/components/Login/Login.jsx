@@ -1,43 +1,16 @@
 import "./Login.css";
 import { useState } from "react";
-import { useFormValidation } from "../../hooks/useFormValidation";
+import { useFormWithValidation } from "../../hooks/useFormValidation";
 import AuthForm from "../AuthPage/AuthPage";
 
 function Login({ onLogin, isLoading }) {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation({});
 
-  const [isFormValid, setIsFormValid] = useState(false);
-  const { validateFormData, onBlurInput, errors } = useFormValidation(formData);
-
-  const handleChange = (e) => {
-    const formField = e.target.name;
-    const updatedFormData = {
-      ...formData,
-      [formField]: e.target.value,
-    };
-    if (errors[formField].focused) {
-      setFormData({
-        formData,
-        errors,
-        formField,
-      });
-    }
-    setFormData(updatedFormData);
-  };
   function handleSubmit(e) {
     e.preventDefault();
-    const { isValid } = validateFormData({
-      formData,
-      errors,
-      applyInputFocused: true,
-    });
-    if (isValid) {
-      setIsFormValid(true);
-    } 
-    onLogin(formData.email, formData.password);
+    onLogin(values);
+    resetForm();
   }
 
   return (
@@ -50,7 +23,7 @@ function Login({ onLogin, isLoading }) {
         linkText="Регистрация"
         page="/register"
         onSubmit={handleSubmit}
-        isValid={isFormValid}
+        isValid={isValid}
       >
         <label htmlFor="email" className="auth-page__form-label">
           E-mail
@@ -62,10 +35,9 @@ function Login({ onLogin, isLoading }) {
             className={`auth-page__form-input  ${
               !!errors.email.message && "auth-page__form-input_error"
             }`}
-            value={formData.email || ""}
+            value={values.email || ""}
             onChange={handleChange}
             required
-            onBlur={onBlurInput}
           />
           <span className="auth-page__error-text">{errors.email.message}</span>
         </label>
@@ -79,10 +51,9 @@ function Login({ onLogin, isLoading }) {
               !!errors.password.message && "auth-page__form-input_error"
             }`}
             placeholder="******"
-            value={formData.password || ""}
+            value={values.password || ""}
             onChange={handleChange}
             required
-            onBlur={onBlurInput}
           />
           <span className="auth-page__error-text">
             {errors.password.message}

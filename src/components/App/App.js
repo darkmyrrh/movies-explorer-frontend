@@ -114,8 +114,14 @@ function App() {
   const handleLogout = () => {
     MainApi.signout().then(() => {
       setLoggedIn(false);
-      
+      localStorage.clear("SavedSearch");
+      localStorage.clear('SearchRequest');
+      localStorage.clear("SavedCheckboxState");
+      localStorage.clear("SavedShortsSearch");
+      localStorage.clear("InitialMoviesArray");      
       navigate("/", { replace: true });
+    }).catch((err) => {
+      console.log(err);
     });
   };
 

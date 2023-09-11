@@ -1,48 +1,21 @@
 import "./Profile.css";
 import { useState, useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useFormValidation } from "../../hooks/useFormValidation";
+import { useFormWithValidation } from "../../hooks/useFormValidation";
 
 function Profile({ onUpdateUser, onExit, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-  });
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation({});
 
-  const [isSubmitVisible, setIsSubmitVisible] = useState(false);  
-  const [isFormValid, setIsFormValid] = useState(false);
 
-  const { validateFormData, onBlurInput, errors } = useFormValidation(formData);
+  const [isSubmitVisible, setIsSubmitVisible] = useState(false);
 
-  const handleChange = (e) => {
-    const formField = e.target.name;
-    const updatedFormData = {
-      ...formData,
-      [formField]: e.target.value,
-    };
-    if (errors[formField].focused) {
-      setFormData({
-        formData,
-        errors,
-        formField,
-      });
-      setIsFormValid(false);
-    }
-    setFormData(updatedFormData);
-  };
-
+  
   function handleSubmit(e) {
     e.preventDefault();
-    const { isValid } = validateFormData({
-      formData,
-      errors,
-      applyInputFocused: true,
-      isSubmitDisabled: false,
-    });    if (isValid) {
-      setIsFormValid(true);
-    } else return
-    onUpdateUser(formData.name, formData.email);
+    onUpdateUser(values);
+    resetForm();
   }
 
   function enableEditing() {
@@ -71,8 +44,7 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
             disabled={isSubmitVisible ? false : true}
             required
             onChange={handleChange}
-            value={formData.name || currentUser.name || ""}
-            onBlur={onBlurInput}
+            value={values.name || currentUser.name || ""}
           />
         </label>
         {errors.name.message && (
@@ -96,8 +68,7 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
             disabled={isSubmitVisible ? false : true}
             required
             onChange={handleChange}
-            value={formData.email || currentUser.email || ""}
-            onBlur={onBlurInput}
+            value={values.email || currentUser.email || ""}
           />
         </label>
         {!!errors.email.message && (
@@ -108,10 +79,10 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
         <button
           type="submit"
           className={`profile__submit ${
-            isFormValid ? "" : "profile__submit_disabled"
+            isValid ? "" : "profile__submit_disabled"
           }`}
           onClick={handleSubmit}
-          disabled={isFormValid ? false : true}
+          disabled={isValid ? false : true}
         >
           {isLoading ? "Сохранение" : "Сохранить"}
         </button>

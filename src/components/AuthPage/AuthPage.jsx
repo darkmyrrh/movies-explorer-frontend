@@ -11,12 +11,14 @@ function AuthForm({
   page,
   linkText,
   isValid,
-  onSubmit
+  onSubmit,
 }) {
   const location = useLocation();
   const submitButtonClassName = `auth-page__submit app__button ${
-    isValid ? "" : "auth-page__submit_disabled"
-  } ${location.pathname === '/register' ? "auth-page__submit_type_register" : "auth-page__submit_type_login"}`
+    location.pathname === "/register"
+      ? "auth-page__submit_type_register"
+      : "auth-page__submit_type_login"
+  } ${isValid ? "" : "auth-page__submit_disabled"}`;
 
   return (
     <section className="auth-page">

@@ -1,46 +1,19 @@
 import "./Register.css";
-import { useState } from "react";
 import AuthForm from "../AuthPage/AuthPage";
-import { useFormValidation } from "../../hooks/useFormValidation";
+import { useFormWithValidation } from "../../hooks/useFormValidation";
+import { nameValidation, emailValidation, passwordValidation } from "../../utils/formValidationRules";
 
 function Register({ onRegister, isLoading }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
+    const nameErrorMessage = nameValidation(values.name);
+    const emailErrorMessage = emailValidation(values.email);
+    const passwordErrorMessage = passwordValidation(values.password);
 
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  const { validateFormData, onBlurInput, errors } = useFormValidation(formData);
-
-  const handleChange = (e) => {
-    const formField = e.target.name;
-    const updatedFormData = {
-      ...formData,
-      [formField]: e.target.value,
-    };
-    if (errors[formField].focused) {
-      setFormData({
-        formData,
-        errors,
-        formField,
-      });
-      setIsFormValid(false);
-    }
-    setFormData(updatedFormData);
-  };
   function handleSubmit(e) {
     e.preventDefault();
-    const { isValid } = validateFormData({
-      formData,
-      errors,
-      applyInputFocused: true,
-    });
-    if (isValid) {
-      setIsFormValid(true);
-    } else return;
-    onRegister(formData.name, formData.email, formData.password);
+    onRegister(values.name, values.email, values.password);
+    resetForm();
   }
 
   return (
@@ -53,24 +26,25 @@ function Register({ onRegister, isLoading }) {
         linkText="Войти"
         page="/login"
         onSubmit={handleSubmit}
-        isValid={isFormValid}
+        isValid={isValid}
       >
         <label htmlFor="name" className="auth-page__form-label">
           Имя
           <input
             type="text"
             className={`auth-page__form-input  ${
-              errors.name.message && "auth-page__form-input_error"
+              errors.name && "auth-page__form-input_error"
             }`}
             name="name"
             id="name"
             placeholder="Имя"
-            value={formData.name || ""}
+            value={values.name || ""}
             onChange={handleChange}
+            minLength="2"
+            maxLength="30"
             required
-            onBlur={onBlurInput}
           />
-          <span className="auth-page__error-text">{errors.name.message}</span>
+          <span className="auth-page__error-text">{nameErrorMessage}</span>
         </label>
         <label htmlFor="email" className="auth-page__form-label">
           E-mail
@@ -80,14 +54,13 @@ function Register({ onRegister, isLoading }) {
             id="email"
             placeholder="E-mail"
             className={`auth-page__form-input  ${
-              !!errors.email.message && "auth-page__form-input_error"
+              errors.email && "auth-page__form-input_error"
             }`}
-            value={formData.email || ""}
+            value={values.email || ""}
             onChange={handleChange}
             required
-            onBlur={onBlurInput}
           />
-          <span className="auth-page__error-text">{errors.email.message}</span>
+          <span className="auth-page__error-text">{emailErrorMessage}</span>
         </label>
         <label htmlFor="password" className="auth-page__form-label">
           Пароль
@@ -96,17 +69,14 @@ function Register({ onRegister, isLoading }) {
             name="password"
             id="password"
             className={`auth-page__form-input  ${
-              !!errors.password.message && "auth-page__form-input_error"
+              errors.password && "auth-page__form-input_error"
             }`}
             placeholder="Пароль"
-            value={formData.password || ""}
+            value={values.password || ""}
             onChange={handleChange}
             required
-            onBlur={onBlurInput}
           />
-          <span className="auth-page__error-text">
-            {errors.password.message}
-          </span>
+          <span className="auth-page__error-text">{passwordErrorMessage}</span>
         </label>
       </AuthForm>
     </main>

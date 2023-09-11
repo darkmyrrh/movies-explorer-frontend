@@ -1,15 +1,13 @@
 export const nameValidation = (name) => {
-  const minLength = (length, min) => length < min ? false : true;
-  const maxLength = (length, max) => length > max ? false : true;
-  const min = 2;
-  const max = 30;
+  const minLength = (length) => length < 2 ? false : true;
+  const maxLength = (length) => length > 30 ? false : true;
   if (!name) {
     return "Необходимо указать имя";
   } else if (!minLength(name.length)) {
-    return `Имя должно содержать не менее ${min} символов`;
+    return "Имя должно содержать не менее 2 символов";
   }
   else if (!maxLength(name.length)) {
-    return `Имя должно содержать не более ${max} символов`;;
+    return "Имя должно содержать не более 30 символов";
   }
   return "";
 }

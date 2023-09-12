@@ -14,7 +14,6 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import InfoToolTip from "../InfoTooltip/InfoTooltip";
 import * as MainApi from "../../utils/MainApi";
-import { MOVIES_BASE_URL } from "../../utils/constants";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -57,6 +56,22 @@ function App() {
     handleTokenCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([MainApi.getUserDetails(), MainApi.getSavedMovies()])
+        .then(([userInfo, movies]) => {
+          setСurrentUser(userInfo);
+          const isOwn = movies.filter(
+            (movie) => movie.owner._id === currentUser._id
+          );
+          setSavedMovies(isOwn);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn, currentUser._id]);
 
   const handleRegister = (name, email, password) => {
     setRenderUserRegisterLoading(true);
@@ -139,49 +154,25 @@ function App() {
       });
   };
 
-  useEffect(() => {
-    if (loggedIn) {
-      Promise.all([MainApi.getUserDetails(), MainApi.getSavedMovies()])
-        .then(([userInfo, savedMovies]) => {
-          setСurrentUser(userInfo);
-          const isOwn = savedMovies.filter(
-            (movie) => movie.owner._id === currentUser._id
-          );
-          setSavedMovies(isOwn);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [loggedIn, currentUser._id]);
+
 
   function handleLikeClick(movie) {
     const isMovieSaved = savedMovies.some((item) => item.movieId === movie.id);
     if (!isMovieSaved) {
-      MainApi.saveMovie({
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: MOVIES_BASE_URL + movie.image.url,
-        trailerLink: movie.trailerLink,
-        thumbnail: MOVIES_BASE_URL + movie.image.formats.thumbnail.url,
-        movieId: movie.id,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
-      })
+      MainApi.saveMovie(movie)
         .then((savedMovie) => {
           setSavedMovies([savedMovie, ...savedMovies]);
-          setInfoToolTipOpen(true)
-          setIsSuccessful(true)
-          setSuccessMesage("Фильм успешно добавлен");
         })
         .catch((err) => {
           console.log(err)
           setInfoToolTipOpen(true);
           setIsSuccessful(false);
           setFailedMessage(err.message);
+        })
+        .finally(() => {          
+          setInfoToolTipOpen(true)
+          setIsSuccessful(true)
+          setSuccessMesage("Фильм успешно добавлен");
         });
     } else {
       const savedMovie = savedMovies.find((item) => item.movieId === movie.id);

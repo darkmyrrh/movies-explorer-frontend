@@ -1,13 +1,10 @@
 import "./Login.css";
 import { useFormWithValidation } from "../../hooks/useFormValidation";
-import { emailValidation, passwordValidation } from "../../utils/formValidationRules";
 import AuthForm from "../AuthPage/AuthPage";
 
 function Login({ onLogin, isLoading }) {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({});
-    const emailErrorMessage = emailValidation(values.email);
-    const passwordErrorMessage = passwordValidation(values.password);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -41,7 +38,7 @@ function Login({ onLogin, isLoading }) {
             onChange={handleChange}
             required
           />
-          <span className="auth-page__error-text">{emailErrorMessage}</span>
+          <span className="auth-page__error-text">{errors.email}</span>
         </label>
         <label htmlFor="password" className="auth-page__form-label">
           Пароль
@@ -58,7 +55,7 @@ function Login({ onLogin, isLoading }) {
             required
           />
           <span className="auth-page__error-text">
-            {passwordErrorMessage}
+            {errors.password}
           </span>
         </label>
       </AuthForm>

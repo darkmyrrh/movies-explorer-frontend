@@ -1,7 +1,7 @@
 import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ onSubmit, handleChange, checked, onChange, inputValue }) {
+function SearchForm({ onSubmit, handleChange, checked, onChange, inputValue, errorMessage }) {
   function handleSubmit(e) {
     e.preventDefault();
     onSubmit();
@@ -15,6 +15,7 @@ function SearchForm({ onSubmit, handleChange, checked, onChange, inputValue }) {
         type="search"
         method="GET"
         id="search"
+        noValidate
       >
         <input
           placeholder="Фильм"
@@ -27,6 +28,7 @@ function SearchForm({ onSubmit, handleChange, checked, onChange, inputValue }) {
           Найти
         </button>
       </form>
+      <span className="search-form__error-text">{errorMessage}</span>
       <FilterCheckbox checked={checked} onChange={onChange} />
     </>
   );

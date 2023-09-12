@@ -1,7 +1,6 @@
 import "./FilterCheckbox.css";
 
-function FilterCheckbox({checked, onChange}) {
-
+function FilterCheckbox({ checked, onChange }) {
   return (
     <div className="filter-checkbox">
       <input

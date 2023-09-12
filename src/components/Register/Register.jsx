@@ -1,19 +1,16 @@
 import "./Register.css";
 import AuthForm from "../AuthPage/AuthPage";
 import { useFormWithValidation } from "../../hooks/useFormValidation";
-import { nameValidation, emailValidation, passwordValidation } from "../../utils/formValidationRules";
 
 function Register({ onRegister, isLoading }) {
+
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
-    const nameErrorMessage = nameValidation(values.name);
-    const emailErrorMessage = emailValidation(values.email);
-    const passwordErrorMessage = passwordValidation(values.password);
+
 
   function handleSubmit(e) {
     e.preventDefault();
     onRegister(values.name, values.email, values.password);
-    resetForm();
   }
 
   return (
@@ -44,7 +41,7 @@ function Register({ onRegister, isLoading }) {
             maxLength="30"
             required
           />
-          <span className="auth-page__error-text">{nameErrorMessage}</span>
+          <span className="auth-page__error-text">{errors.name}</span>
         </label>
         <label htmlFor="email" className="auth-page__form-label">
           E-mail
@@ -60,7 +57,7 @@ function Register({ onRegister, isLoading }) {
             onChange={handleChange}
             required
           />
-          <span className="auth-page__error-text">{emailErrorMessage}</span>
+          <span className="auth-page__error-text">{errors.email}</span>
         </label>
         <label htmlFor="password" className="auth-page__form-label">
           Пароль
@@ -76,7 +73,7 @@ function Register({ onRegister, isLoading }) {
             onChange={handleChange}
             required
           />
-          <span className="auth-page__error-text">{passwordErrorMessage}</span>
+          <span className="auth-page__error-text">{errors.password}</span>
         </label>
       </AuthForm>
     </main>

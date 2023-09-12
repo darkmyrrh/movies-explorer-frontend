@@ -1,8 +1,8 @@
 import { BASE_URL } from "./constants";
+import { MOVIES_BASE_URL } from "./constants";
 
 function getResponse(res) {
   if (res.ok) {
-    console.log(res);
     return res.json();
   } else {
     return res.json().then((err) => {
@@ -99,7 +99,19 @@ export const saveMovie = (data) => {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      country: data.country,
+      director: data.director,
+      duration: data.duration,
+      year: data.year,
+      description: data.description,
+      image: MOVIES_BASE_URL + data.image.url,
+      trailerLink: data.trailerLink,
+      thumbnail: MOVIES_BASE_URL + data.image.formats.thumbnail.url,
+      movieId: data.id,
+      nameRU: data.nameRU,
+      nameEN: data.nameEN,
+    }),
   });
 };
 export const deleteMovie = (id) => {

@@ -7,19 +7,22 @@ import * as MoviesApi from "../../utils/MoviesApi";
 import useResize from "../../hooks/useResize";
 
 function Movies({ onLikeClick, savedMovies }) {
-  const { isScreenLarge, isScreenMedium, width } = useResize();
+  const { isScreenXLarge, isScreenLarge, isScreenMedium, width } = useResize();
 
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [foundMovies, setFoundMovies] = useState([]);
   const [allFoundMovies, setAllFoundMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [isShort, setIsShort] = useState(false);
+  const [isShort, setIsShort] = useState(
+    JSON.parse(localStorage.getItem("SavedCheckboxState")) || false
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [nothingFound, setNothingFound] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [cardNumber, setCardNumber] = useState(0);
   const [allCardsNumber, setAllCardsNumber] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function getInitialMovies() {
     setIsLoading(true);
@@ -35,8 +38,10 @@ function Movies({ onLikeClick, savedMovies }) {
 
   useEffect(() => {
     let initialCardsNumber;
-    if (isScreenLarge) {
+    if (isScreenXLarge) {
       initialCardsNumber = 16;
+    } else if (isScreenLarge) {
+      initialCardsNumber = 12;
     } else if (isScreenMedium) {
       initialCardsNumber = 8;
     } else {
@@ -48,18 +53,22 @@ function Movies({ onLikeClick, savedMovies }) {
   useEffect(() => {
     getInitialMovies();
   }, []);
+
   useEffect(() => {
     const savedResults = localStorage.getItem("SavedSearch");
     const savedShortsSearch = localStorage.getItem("SavedShortsSearch");
-    const savedCheckbox = localStorage.getItem("SavedCheckboxState");
+    const savedCheckbox = JSON.parse(
+      localStorage.getItem("SavedCheckboxState")
+    );
     const savedSearchRequest = localStorage.getItem("SearchRequest");
     if (!savedResults) {
       setIsLoading(true);
-    } else {
-
+      return;
+    }
     setFoundMovies(JSON.parse(savedResults).slice(0, cardNumber));
+    setAllFoundMovies(JSON.parse(savedResults));
     setSearchQuery(JSON.parse(savedSearchRequest));
-    setIsShort(JSON.parse(savedCheckbox));
+    setIsShort(savedCheckbox);
     setFilteredMovies(JSON.parse(savedShortsSearch));
     setIsLoading(false);
     if (
@@ -72,15 +81,16 @@ function Movies({ onLikeClick, savedMovies }) {
       }
     } else {
       setIsButtonVisible(false);
-    }}
-  }, [cardNumber, allCardsNumber, nothingFound]);
+    }
+  }, [cardNumber, allCardsNumber]);
 
   useEffect(() => {
     filterMoviesByDuration();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isShort, searchQuery, nothingFound]);
 
-  function handleCheckBoxClick() {
-    setIsShort(!isShort);
+  function handleCheckBoxClick(e) {
+    setIsShort(e.target.checked);
   }
 
   function handleInputChange(e) {
@@ -88,16 +98,21 @@ function Movies({ onLikeClick, savedMovies }) {
   }
 
   function handleSearch() {
+    if (searchQuery === "") {
+      setErrorMessage("Введите ключевое слово для поиска");
+      setIsLoading(true);
+    }
     const results = movies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(searchQuery) ||
         movie.nameEN.toLowerCase().includes(searchQuery)
       );
     });
-
     if (results.length === 0) {
-      setNothingFound(true);
+      console.log(nothingFound);
+      console.log(results.length);
     } else {
+      setErrorMessage("");
       setAllCardsNumber(results.length);
       setAllFoundMovies(results);
       setFoundMovies(results.slice(0, cardNumber));
@@ -105,7 +120,6 @@ function Movies({ onLikeClick, savedMovies }) {
       setNothingFound(false);
       localStorage.setItem("SavedSearch", JSON.stringify(results));
       localStorage.setItem("SearchRequest", JSON.stringify(searchQuery));
-      localStorage.setItem("SavedCheckboxState", JSON.stringify(isShort));
     }
   }
 
@@ -124,12 +138,15 @@ function Movies({ onLikeClick, savedMovies }) {
       setNothingFound(false);
       setIsShort(false);
     }
+    localStorage.setItem("SavedCheckboxState", JSON.stringify(isShort));
   }
 
   function handleLoadMoreButtonClick() {
     let additionalCards;
-    if (isScreenLarge) {
+    if (isScreenXLarge) {
       additionalCards = 4;
+    } else if (isScreenLarge) {
+      additionalCards = 3;
     } else if (isScreenMedium) {
       additionalCards = 2;
     } else {
@@ -146,6 +163,7 @@ function Movies({ onLikeClick, savedMovies }) {
         handleChange={handleInputChange}
         inputValue={searchQuery}
         onSubmit={handleSearch}
+        errorMessage={errorMessage}
       />
       {isLoading ? (
         <Preloader />

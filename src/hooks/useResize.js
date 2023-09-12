@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import {
+  SCREEN_XLARGE,
   SCREEN_LARGE,
   SCREEN_MEDIUM,
   SCREEN_SMALL,
@@ -23,6 +24,7 @@ function useResize() {
     isScreenSmall: width >= SCREEN_SMALL,
     isScreenMedium: width >= SCREEN_MEDIUM,
     isScreenLarge: width >= SCREEN_LARGE,
+    isScreenXLarge: width >= SCREEN_XLARGE,
   };
 }
 

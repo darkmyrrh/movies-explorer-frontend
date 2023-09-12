@@ -10,15 +10,14 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
   const [isShort, setIsShort] = useState(false);
   const [nothingFound, setNothingFound] = useState(false);
   const [isSearched, setIsSearched] = useState(false);
-
-
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     filterMoviesByDuration();
   }, [isShort]);
 
-  function handleCheckBoxClick() {
-    setIsShort(!isShort);
+  function handleCheckBoxClick(e) {
+    setIsShort(e.target.checked);
   }
 
   function handleInputChange(e) {
@@ -32,6 +31,12 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
         movie.nameEN.toLowerCase().includes(searchQuery)
       );
     });
+    if (searchQuery === "") {
+      setErrorMessage("Введите ключевое слово для поиска");
+      setNothingFound(true);
+      return;
+    }
+    setErrorMessage("");
     setIsSearched(true);
     if (results.length === 0) {
       setNothingFound(true);
@@ -43,7 +48,12 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
 
   function filterMoviesByDuration() {
     if (isShort) {
-      const shortMovies = foundMovies.filter((movie) => movie.duration < 40);
+      let shortMovies;
+      if (isSearched) {
+        shortMovies = foundMovies.filter((movie) => movie.duration < 40);
+      } else {
+        shortMovies = savedMovies.filter((movie) => movie.duration < 40);
+      }
       if (shortMovies.length === 0) {
         setFilteredMovies([]);
         setNothingFound(true);
@@ -66,9 +76,18 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
         handleChange={handleInputChange}
         inputValue={searchQuery}
         onSubmit={handleSearch}
+        errorMessage={errorMessage}
       />
       <MoviesCardList
-        cards={isSearched ? (isShort ? filteredMovies : foundMovies) : savedMovies}
+        cards={
+          isSearched
+            ? isShort
+              ? filteredMovies
+              : foundMovies
+            : isShort
+            ? filteredMovies
+            : savedMovies
+        }
         onDeleteClick={onDeleteClick}
         savedMovies={savedMovies}
         nothingFound={nothingFound}

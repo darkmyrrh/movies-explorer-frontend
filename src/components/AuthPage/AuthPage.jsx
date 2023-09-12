@@ -33,6 +33,7 @@ function AuthForm({
         type="submit"
         className={submitButtonClassName}
         onClick={onSubmit}
+        disabled={isValid ? false : true}
       >{`${buttonText}`}</button>
       <p className="auth-page__paragraph">
         {text}

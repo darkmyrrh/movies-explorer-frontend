@@ -2,14 +2,11 @@ import "./Profile.css";
 import { useState, useContext, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../hooks/useFormValidation";
-import { nameValidation, emailValidation } from "../../utils/formValidationRules";
 
 function Profile({ onUpdateUser, onExit, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, resetForm, setValues } =
     useFormWithValidation({});
-    const nameErrorMessage = nameValidation(values.name);
-    const emailErrorMessage = emailValidation(values.email);
 
     useEffect(() => {
       setValues({ name: currentUser.name, email: currentUser.email });
@@ -58,7 +55,7 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
             value={values.name || currentUser.name || ""}
           />
         </label>
-        <span className="profile__error-text">{nameErrorMessage}</span>
+        <span className="profile__error-text">{errors.name}</span>
         <label
           htmlFor="email"
           className={`profile__label ${
@@ -80,7 +77,7 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
             value={values.email || currentUser.email || ""}
           />
         </label>
-        <span className="profile__error-text">{emailErrorMessage}</span>
+        <span className="profile__error-text">{errors.email}</span>
       </form>
       {isSubmitVisible ? (
         <button

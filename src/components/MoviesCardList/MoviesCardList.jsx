@@ -7,25 +7,26 @@ function MoviesCardList({
   onDeleteClick,
   savedMovies,
   nothingFound,
+  isError,
+  errorText,
 }) {
-  
-  const cardElements = cards    
-    .map((card, id) => (
-      <MoviesCard
-        key={id}
-        card={card}
-        onLikeClick={onLikeClick}
-        onDeleteClick={onDeleteClick}
-        savedMovies={savedMovies}
-      />
-    ));
 
   return (
     <>
-      {nothingFound ? (
-        <span className="movies__not-found-error">Ничего не найдено</span>
+      {isError ? (
+        <span className="movies-cardlist__not-found-error">{errorText}</span>
+      ) : nothingFound ? (
+        <span className="movies-cardlist__not-found-error">Ничего не найдено</span>
       ) : (
-        <ul className="movies-cardlist">{cardElements}</ul>
+        <ul className="movies-cardlist">{cards.map((card, id) => (
+          <MoviesCard
+            key={id}
+            card={card}
+            onLikeClick={onLikeClick}
+            onDeleteClick={onDeleteClick}
+            savedMovies={savedMovies}
+          />
+        ))}</ul>
       )}
       ;
     </>

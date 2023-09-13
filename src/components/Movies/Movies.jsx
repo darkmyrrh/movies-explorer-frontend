@@ -23,6 +23,8 @@ function Movies({ onLikeClick, savedMovies }) {
   const [cardNumber, setCardNumber] = useState(0);
   const [allCardsNumber, setAllCardsNumber] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
   function getInitialMovies() {
     setIsLoading(true);
@@ -30,9 +32,16 @@ function Movies({ onLikeClick, savedMovies }) {
       .then((data) => {
         setMovies(data);
         localStorage.setItem("InitialMoviesArray", JSON.stringify(data));
+        setIsError(false);
+        setErrorText("");
       })
       .catch((err) => {
         console.log(err);
+        setIsError(true);
+        setErrorText(
+          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+        );
+        setIsButtonVisible(false);
       });
   }
 
@@ -48,28 +57,36 @@ function Movies({ onLikeClick, savedMovies }) {
       initialCardsNumber = 5;
     }
     setCardNumber(initialCardsNumber);
-  }, [width]);
+  }, [width, isScreenLarge, isScreenXLarge, isScreenMedium]);
 
   useEffect(() => {
     getInitialMovies();
   }, []);
 
   useEffect(() => {
-    const savedResults = localStorage.getItem("SavedSearch");
-    const savedShortsSearch = localStorage.getItem("SavedShortsSearch");
+    const savedResults = JSON.parse(localStorage.getItem("SavedSearch"));
+    const foundCardsNumber = JSON.parse(
+      localStorage.getItem("FoundCardsNumber")
+    );
+    const savedShortsSearch = JSON.parse(
+      localStorage.getItem("SavedShortsSearch")
+    );
     const savedCheckbox = JSON.parse(
       localStorage.getItem("SavedCheckboxState")
     );
-    const savedSearchRequest = localStorage.getItem("SearchRequest");
+    const savedSearchRequest = JSON.parse(
+      localStorage.getItem("SearchRequest")
+    );
     if (!savedResults) {
       setIsLoading(true);
       return;
     }
-    setFoundMovies(JSON.parse(savedResults).slice(0, cardNumber));
-    setAllFoundMovies(JSON.parse(savedResults));
-    setSearchQuery(JSON.parse(savedSearchRequest));
+    setAllFoundMovies(savedResults);
+    setAllCardsNumber(foundCardsNumber);
+    setFoundMovies(savedResults.slice(0, cardNumber));
+    setSearchQuery(savedSearchRequest);
     setIsShort(savedCheckbox);
-    setFilteredMovies(JSON.parse(savedShortsSearch));
+    setFilteredMovies(savedShortsSearch);
     setIsLoading(false);
     if (
       savedResults.length > cardNumber ||
@@ -98,29 +115,34 @@ function Movies({ onLikeClick, savedMovies }) {
   }
 
   function handleSearch() {
-    if (searchQuery === "") {
-      setErrorMessage("Введите ключевое слово для поиска");
-      setIsLoading(true);
-    }
     const results = movies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(searchQuery) ||
         movie.nameEN.toLowerCase().includes(searchQuery)
       );
     });
-    if (results.length === 0) {
-      console.log(nothingFound);
-      console.log(results.length);
-    } else {
-      setErrorMessage("");
-      setAllCardsNumber(results.length);
-      setAllFoundMovies(results);
-      setFoundMovies(results.slice(0, cardNumber));
-      setIsLoading(false);
-      setNothingFound(false);
-      localStorage.setItem("SavedSearch", JSON.stringify(results));
-      localStorage.setItem("SearchRequest", JSON.stringify(searchQuery));
+    if (searchQuery === "") {
+      setErrorMessage("Введите ключевое слово для поиска");
+      setIsLoading(true);
+      return;
     }
+    if (results.length === 0) {
+      setNothingFound(true);
+    } else {
+      setNothingFound(false);
+    }
+    setErrorMessage("");
+    setAllCardsNumber(results.length);
+    setAllFoundMovies(results);
+    setFoundMovies(results.slice(0, cardNumber));
+    setIsLoading(false);
+    localStorage.setItem("SavedSearch", JSON.stringify(results));
+    localStorage.setItem("SearchRequest", JSON.stringify(searchQuery));
+    localStorage.setItem("FoundCardsNumber", JSON.stringify(results.length));
+    localStorage.setItem(
+      "SavedShortsSearch",
+      JSON.stringify(results.filter((movie) => movie.duration < 40))
+    );
   }
 
   function filterMoviesByDuration() {
@@ -132,11 +154,17 @@ function Movies({ onLikeClick, savedMovies }) {
       } else {
         setNothingFound(false);
         setFilteredMovies(shortMovies);
+
+        if (shortMovies.length <= allCardsNumber) {
+          setIsButtonVisible(false);
+        }
       }
       localStorage.setItem("SavedShortsSearch", JSON.stringify(shortMovies));
     } else {
-      setNothingFound(false);
       setIsShort(false);
+      if (foundMovies.length > 0) {
+        setNothingFound(false);
+      }
     }
     localStorage.setItem("SavedCheckboxState", JSON.stringify(isShort));
   }
@@ -173,6 +201,8 @@ function Movies({ onLikeClick, savedMovies }) {
           cards={isShort ? filteredMovies : foundMovies}
           onLikeClick={onLikeClick}
           savedMovies={savedMovies}
+          isError={isError}
+          errorText={errorText}
         />
       )}
       {isButtonVisible && (

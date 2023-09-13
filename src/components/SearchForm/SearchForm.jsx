@@ -23,6 +23,8 @@ function SearchForm({ onSubmit, handleChange, checked, onChange, inputValue, err
           required
           onChange={handleChange}
           value={inputValue}
+          name="search-input"
+          autoComplete="off"
         />
         <button type="submit" className="search-form__submit app__button">
           Найти

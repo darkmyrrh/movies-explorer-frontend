@@ -12,6 +12,7 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
   const [isSearched, setIsSearched] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+
   useEffect(() => {
     filterMoviesByDuration();
   }, [isShort]);

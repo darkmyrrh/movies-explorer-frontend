@@ -112,7 +112,7 @@ export const saveMovie = (data) => {
       nameRU: data.nameRU,
       nameEN: data.nameEN,
     }),
-  });
+  }).then(getResponse);
 };
 export const deleteMovie = (id) => {
   return fetch(`${BASE_URL}/movies/${id}`, {
@@ -122,5 +122,5 @@ export const deleteMovie = (id) => {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-  });
+  }).then(getResponse);
 };

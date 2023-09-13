@@ -164,6 +164,10 @@ function Movies({ onLikeClick, savedMovies }) {
       setIsShort(false);
       if (foundMovies.length > 0) {
         setNothingFound(false);
+        setFoundMovies(allFoundMovies.slice(0, cardNumber));
+        if (allFoundMovies.length > cardNumber) {
+          setIsButtonVisible(true);
+        }
       }
     }
     localStorage.setItem("SavedCheckboxState", JSON.stringify(isShort));

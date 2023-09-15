@@ -5,30 +5,28 @@ import { useFormWithValidation } from "../../hooks/useFormValidation";
 
 function Profile({ onUpdateUser, onExit, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
-  const { values, handleChange, errors, isValid, resetForm, setValues } =
-    useFormWithValidation({});
+  const { values, handleChange, errors, isValid, setValues } =
+    useFormWithValidation();
 
     useEffect(() => {
       setValues({ name: currentUser.name, email: currentUser.email });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentUser]);
   
-  
-
-
   const [isSubmitVisible, setIsSubmitVisible] = useState(false);
 
   
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateUser(values.name, values.email);
-    resetForm();
     setIsSubmitVisible(false);
   }
 
   function enableEditing() {
     setIsSubmitVisible(true);
   }
+
+  const isButtonEnabled = isValid && (values.name !== currentUser.name || values.email !== currentUser.email )
 
   return (
     <section className="profile">
@@ -50,7 +48,8 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
             name="name"
             id="name"
             disabled={isSubmitVisible ? false : true}
-            required
+            required            
+            pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
             onChange={handleChange}
             value={values.name || currentUser.name || ""}
           />
@@ -73,6 +72,7 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
             id="email"
             disabled={isSubmitVisible ? false : true}
             required
+            pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$"
             onChange={handleChange}
             value={values.email || currentUser.email || ""}
           />
@@ -83,10 +83,10 @@ function Profile({ onUpdateUser, onExit, isLoading }) {
         <button
           type="submit"
           className={`profile__submit ${
-            isValid ? "" : "profile__submit_disabled"
+            isButtonEnabled ? "" : "profile__submit_disabled"
           }`}
           onClick={handleSubmit}
-          disabled={isValid ? false : true}
+          disabled={isButtonEnabled ? false : true}
         >
           {isLoading ? "Сохранение" : "Сохранить"}
         </button>

@@ -26,21 +26,25 @@ function AuthForm({
         <img src={logo} alt="Логотип" className="auth-page__logo" />
       </Link>
       <h1 className="auth-page__greeting">{greetingText}</h1>
-      <form className="auth-page__form" name={`${name}`} noValidate>
+      <form
+        className="auth-page__form"
+        name={`${name}`}
+        onSubmit={onSubmit}
+        noValidate
+      >
         {children}
+        <button
+          type="submit"
+          className={submitButtonClassName}
+          disabled={isValid ? false : true}
+        >{`${buttonText}`}</button>
+        <p className="auth-page__paragraph">
+          {text}
+          <Link className="auth-page__link app__link" to={page}>
+            {linkText}
+          </Link>
+        </p>
       </form>
-      <button
-        type="submit"
-        className={submitButtonClassName}
-        onClick={onSubmit}
-        disabled={isValid ? false : true}
-      >{`${buttonText}`}</button>
-      <p className="auth-page__paragraph">
-        {text}
-        <Link className="auth-page__link app__link" to={page}>
-          {linkText}
-        </Link>
-      </p>
     </section>
   );
 }

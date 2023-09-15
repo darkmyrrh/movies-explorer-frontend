@@ -17,7 +17,7 @@ function Movies({ onLikeClick, savedMovies }) {
   const [isShort, setIsShort] = useState(
     JSON.parse(localStorage.getItem("SavedCheckboxState")) || false
   );
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [nothingFound, setNothingFound] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [cardNumber, setCardNumber] = useState(0);
@@ -59,9 +59,9 @@ function Movies({ onLikeClick, savedMovies }) {
     setCardNumber(initialCardsNumber);
   }, [width, isScreenLarge, isScreenXLarge, isScreenMedium]);
 
-  useEffect(() => {
-    getInitialMovies();
-  }, []);
+  // useEffect(() => {
+  //   getInitialMovies();
+  // }, []);
 
   useEffect(() => {
     const savedResults = JSON.parse(localStorage.getItem("SavedSearch"));
@@ -77,10 +77,6 @@ function Movies({ onLikeClick, savedMovies }) {
     const savedSearchRequest = JSON.parse(
       localStorage.getItem("SearchRequest")
     );
-    if (!savedResults) {
-      setIsLoading(true);
-      return;
-    }
     setAllFoundMovies(savedResults);
     setAllCardsNumber(foundCardsNumber);
     setFoundMovies(savedResults.slice(0, cardNumber));
@@ -115,6 +111,10 @@ function Movies({ onLikeClick, savedMovies }) {
   }
 
   function handleSearch() {
+    if (!movies.length) {
+      setIsLoading(true);
+      getInitialMovies();
+    }
     const results = movies.filter((movie) => {
       return (
         movie.nameRU.toLowerCase().includes(searchQuery) ||
@@ -123,7 +123,8 @@ function Movies({ onLikeClick, savedMovies }) {
     });
     if (searchQuery === "") {
       setErrorMessage("Введите ключевое слово для поиска");
-      setIsLoading(true);
+      setIsLoading(false);
+      setIsButtonVisible(false);
       return;
     }
     if (results.length === 0) {
@@ -179,11 +180,9 @@ function Movies({ onLikeClick, savedMovies }) {
       additionalCards = 4;
     } else if (isScreenLarge) {
       additionalCards = 3;
-    } else if (isScreenMedium) {
-      additionalCards = 2;
     } else {
-      additionalCards = 1;
-    }
+      additionalCards = 2;
+    } 
     setCardNumber((prevState) => prevState + additionalCards);
   }
 

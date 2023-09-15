@@ -1,16 +1,19 @@
 import "./Register.css";
 import AuthForm from "../AuthPage/AuthPage";
 import { useFormWithValidation } from "../../hooks/useFormValidation";
+import { Navigate, useLocation } from "react-router-dom";
 
-function Register({ onRegister, isLoading }) {
-
-  const { values, handleChange, errors, isValid, resetForm } =
+function Register({ onRegister, isLoading, loggedIn }) {
+  const location = useLocation();
+  const { values, handleChange, errors, isValid } =
     useFormWithValidation();
-
 
   function handleSubmit(e) {
     e.preventDefault();
     onRegister(values.name, values.email, values.password);
+  }
+  if (loggedIn) {
+    return <Navigate to="/movies" state={{ from: location }} replace />;
   }
 
   return (
@@ -24,6 +27,7 @@ function Register({ onRegister, isLoading }) {
         page="/login"
         onSubmit={handleSubmit}
         isValid={isValid}
+        errors={errors}
       >
         <label htmlFor="name" className="auth-page__form-label">
           Имя
@@ -39,6 +43,7 @@ function Register({ onRegister, isLoading }) {
             onChange={handleChange}
             minLength="2"
             maxLength="30"
+            pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
             required
           />
           <span className="auth-page__error-text">{errors.name}</span>
@@ -55,6 +60,7 @@ function Register({ onRegister, isLoading }) {
             }`}
             value={values.email || ""}
             onChange={handleChange}
+            pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$"
             required
           />
           <span className="auth-page__error-text">{errors.email}</span>

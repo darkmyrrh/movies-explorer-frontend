@@ -35,17 +35,6 @@ function App() {
       .then((res) => {
         if (res) {
           setLoggedIn(true);
-          navigate(
-            JSON.parse(window.sessionStorage.getItem("lastRoute") || "{}")
-          );
-          window.onbeforeunload = () => {
-            window.sessionStorage.setItem(
-              "lastRoute",
-              JSON.stringify(window.location.pathname)
-            );
-          };
-        } else {
-          navigate("/", { replace: true });
         }
       })
       .catch((err) => {
@@ -80,7 +69,8 @@ function App() {
         setInfoToolTipOpen(true);
         setSuccessMesage("Пользователь успешно зарегистрирован");
         setIsSuccessful(true);
-        navigate("/login", { replace: true });
+        setLoggedIn(true);
+        navigate("/movies", { replace: true });
       })
       .catch((err) => {
         setInfoToolTipOpen(true);
@@ -147,14 +137,12 @@ function App() {
         navigate("/", { replace: true });
       })
       .catch((err) => {
-        console.log(err);        
+        console.log(err);
         setInfoToolTipOpen(true);
         setIsSuccessful(false);
         setFailedMessage(err.message);
       });
   };
-
-
 
   function handleLikeClick(movie) {
     const isMovieSaved = savedMovies.some((item) => item.movieId === movie.id);
@@ -164,14 +152,14 @@ function App() {
           setSavedMovies([savedMovie, ...savedMovies]);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           setInfoToolTipOpen(true);
           setIsSuccessful(false);
           setFailedMessage(err.message);
         })
-        .finally(() => {          
-          setInfoToolTipOpen(true)
-          setIsSuccessful(true)
+        .finally(() => {
+          setInfoToolTipOpen(true);
+          setIsSuccessful(true);
           setSuccessMesage("Фильм успешно добавлен");
         });
     } else {
@@ -181,21 +169,23 @@ function App() {
   }
 
   function handleDeleteSavedMovie(movie) {
-    MainApi.deleteMovie(movie._id).then(() => {
-      setSavedMovies((state) =>
-        state.filter((item) => {
-          return item._id !== movie._id;
-        })
-      );
-      setInfoToolTipOpen(true)
-          setIsSuccessful(true)
-          setSuccessMesage("Фильм успешно удален");
-    }).catch((err) => {
-          console.log(err)
-          setInfoToolTipOpen(true);
-          setIsSuccessful(false);
-          setFailedMessage(err.message);
-        });
+    MainApi.deleteMovie(movie._id)
+      .then(() => {
+        setSavedMovies((state) =>
+          state.filter((item) => {
+            return item._id !== movie._id;
+          })
+        );
+        setInfoToolTipOpen(true);
+        setIsSuccessful(true);
+        setSuccessMesage("Фильм успешно удален");
+      })
+      .catch((err) => {
+        console.log(err);
+        setInfoToolTipOpen(true);
+        setIsSuccessful(false);
+        setFailedMessage(err.message);
+      });
   }
 
   function closeInfoToolTip() {
@@ -231,6 +221,7 @@ function App() {
                 <Register
                   onRegister={handleRegister}
                   isLoading={renderUserRegisterLoading}
+                  loggedIn={loggedIn}
                 />
                 <Footer isVisible={false} />
               </>
@@ -240,10 +231,11 @@ function App() {
             path="/login"
             element={
               <>
-                <Header loggedIn={loggedIn} isVisible={false} />
+                <Header loggedIn={false} isVisible={false} />
                 <Login
                   onLogin={handleLogin}
                   isLoading={renderUserLoginLoading}
+                  loggedIn={loggedIn}
                 />
                 <Footer isVisible={false} />
               </>

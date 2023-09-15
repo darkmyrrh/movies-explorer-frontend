@@ -16,15 +16,14 @@ export const validateForm = (name, value) => {
   }
 
   if (name === "email") {
-    let errorMessage = "";
     const emailRegEx =
       /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
     if (!value) {
-      return (errorMessage = "Необходимо указать Email");
+      return "Необходимо указать Email";
     } else if (!new RegExp(emailRegEx).test(value)) {
-      return (errorMessage = "Email введен некорректно");
+      return "Email введен некорректно";
     }
-    return errorMessage;
+    return "";
   }
 
   if (name === "password") {

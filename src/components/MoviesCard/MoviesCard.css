@@ -91,6 +91,11 @@
     margin-bottom: 28px;
   }
 }
+@media all and (max-width: 768px) {
+  .movies-card__delete-button {
+    opacity: 1;
+  }
+}
 
 @media all and (max-width: 765px) {
   

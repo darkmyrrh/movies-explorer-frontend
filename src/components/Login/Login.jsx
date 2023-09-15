@@ -1,17 +1,21 @@
 import "./Login.css";
 import { useFormWithValidation } from "../../hooks/useFormValidation";
 import AuthForm from "../AuthPage/AuthPage";
+import { Navigate, useLocation } from "react-router-dom";
 
-function Login({ onLogin, isLoading }) {
-  const { values, handleChange, errors, isValid, resetForm } =
-    useFormWithValidation({});
+function Login({ onLogin, isLoading, loggedIn }) {
+  const location = useLocation();
+
+  const { values, handleChange, errors, isValid,  } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
     onLogin(values.email, values.password);
-    resetForm();
   }
 
+  if (loggedIn) {
+    return <Navigate to="/movies" state={{ location }} replace />;
+  }
   return (
     <main className="login">
       <AuthForm
@@ -36,6 +40,7 @@ function Login({ onLogin, isLoading }) {
             }`}
             value={values.email || ""}
             onChange={handleChange}
+            pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$"
             required
           />
           <span className="auth-page__error-text">{errors.email}</span>
@@ -54,9 +59,7 @@ function Login({ onLogin, isLoading }) {
             onChange={handleChange}
             required
           />
-          <span className="auth-page__error-text">
-            {errors.password}
-          </span>
+          <span className="auth-page__error-text">{errors.password}</span>
         </label>
       </AuthForm>
     </main>

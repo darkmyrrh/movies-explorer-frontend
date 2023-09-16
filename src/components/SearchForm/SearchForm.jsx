@@ -1,7 +1,14 @@
 import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ onSubmit, handleChange, checked, onChange, inputValue, errorMessage }) {
+function SearchForm({
+  onSubmit,
+  handleChange,
+  checked,
+  onChange,
+  inputValue,
+  errorMessage,
+}) {
   function handleSubmit(e) {
     e.preventDefault();
     onSubmit();

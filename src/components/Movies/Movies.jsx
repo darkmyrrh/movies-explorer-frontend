@@ -5,6 +5,17 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import * as MoviesApi from "../../utils/MoviesApi";
 import useResize from "../../hooks/useResize";
+import {
+  CARDS_ON_XLARGE_SCREEN,
+  CARDS_ON_LARGE_SCREEN,
+  CARDS_ON_MEDIUM_SCREEN,
+  CARDS_ON_SMALL_SCREEN,
+  CARDS_TO_ADD_ON_XLARGE_SCREEN,
+  CARDS_TO_ADD_ON_LARGE_SCREEN,
+  CARDS_TO_ADD_ON_MEDIUM_SCREEN,
+  CARDS_TO_ADD_ON_SMALL_SCREEN,
+  SHORT_MOVIES_DURATION,
+} from "../../utils/constants";
 
 function Movies({ onLikeClick, savedMovies }) {
   const { isScreenXLarge, isScreenLarge, isScreenMedium, width } = useResize();
@@ -21,6 +32,8 @@ function Movies({ onLikeClick, savedMovies }) {
   const [nothingFound, setNothingFound] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [cardNumber, setCardNumber] = useState(0);
+  const [filteredMoviesNumber, setFilteredMoviesNumber] = useState(0);
+  const [defaultCardsNumber, setDefaultCardsNumber] = useState(0);
   const [allCardsNumber, setAllCardsNumber] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
@@ -29,26 +42,20 @@ function Movies({ onLikeClick, savedMovies }) {
   useEffect(() => {
     let initialCardsNumber;
     if (isScreenXLarge) {
-      initialCardsNumber = 16;
+      initialCardsNumber = CARDS_ON_XLARGE_SCREEN;
     } else if (isScreenLarge) {
-      initialCardsNumber = 12;
+      initialCardsNumber = CARDS_ON_LARGE_SCREEN;
     } else if (isScreenMedium) {
-      initialCardsNumber = 8;
+      initialCardsNumber = CARDS_ON_MEDIUM_SCREEN;
     } else {
-      initialCardsNumber = 5;
+      initialCardsNumber = CARDS_ON_SMALL_SCREEN;
     }
     setCardNumber(initialCardsNumber);
+    setDefaultCardsNumber(initialCardsNumber);
   }, [width, isScreenLarge, isScreenXLarge, isScreenMedium]);
-
-  // useEffect(() => {
-  //   getInitialMovies();
-  // }, []);
 
   useEffect(() => {
     const savedResults = JSON.parse(localStorage.getItem("SavedSearch"));
-    const foundCardsNumber = JSON.parse(
-      localStorage.getItem("FoundCardsNumber")
-    );
     const savedShortsSearch = JSON.parse(
       localStorage.getItem("SavedShortsSearch")
     );
@@ -59,11 +66,13 @@ function Movies({ onLikeClick, savedMovies }) {
       localStorage.getItem("SearchRequest")
     );
     if (savedResults) {
+      setIsSearched(true);
       setAllFoundMovies(savedResults);
-      setAllCardsNumber(foundCardsNumber);
+      setAllCardsNumber(savedResults.length);
       setFoundMovies(savedResults.slice(0, cardNumber));
       setSearchQuery(savedSearchRequest);
       setIsShort(savedCheckbox);
+      setFilteredMoviesNumber(savedShortsSearch.length);
       setFilteredMovies(savedShortsSearch.slice(0, cardNumber));
       setIsLoading(false);
       if (
@@ -71,14 +80,22 @@ function Movies({ onLikeClick, savedMovies }) {
         savedShortsSearch.length > cardNumber
       ) {
         setIsButtonVisible(true);
-        if (cardNumber >= allCardsNumber) {
+
+        if (isShort && filteredMovies.length >= filteredMoviesNumber) {
           setIsButtonVisible(false);
         }
       } else {
         setIsButtonVisible(false);
       }
     }
-  }, [cardNumber, allCardsNumber]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    foundMovies.length,
+    filteredMovies.length,
+    filteredMoviesNumber,
+    cardNumber,
+    allCardsNumber,
+  ]);
 
   useEffect(() => {
     filterMoviesByDuration();
@@ -94,15 +111,16 @@ function Movies({ onLikeClick, savedMovies }) {
   }
 
   function handleSearch() {
-    setIsSearched(false);
+    setIsSearched(true);
+    setCardNumber(defaultCardsNumber);
     let results = [];
     if (searchQuery === "") {
-      setErrorMessage("Введите ключевое слово для поиска");
+      setErrorMessage("Нужно ввести ключевое слово");
       setIsLoading(false);
       setIsButtonVisible(false);
-      return;
-    }
-    if (!movies.length) {
+      setIsSearched(false);
+    } else if (!movies.length) {
+      setIsSearched(true);
       setIsLoading(true);
       MoviesApi.getMovies()
         .then((data) => {
@@ -129,12 +147,10 @@ function Movies({ onLikeClick, savedMovies }) {
           localStorage.setItem("SavedSearch", JSON.stringify(results));
           localStorage.setItem("SearchRequest", JSON.stringify(searchQuery));
           localStorage.setItem(
-            "FoundCardsNumber",
-            JSON.stringify(results.length)
-          );
-          localStorage.setItem(
             "SavedShortsSearch",
-            JSON.stringify(results.filter((movie) => movie.duration < 40))
+            JSON.stringify(
+              results.filter((movie) => movie.duration <= SHORT_MOVIES_DURATION)
+            )
           );
         })
         .catch((err) => {
@@ -167,27 +183,32 @@ function Movies({ onLikeClick, savedMovies }) {
       localStorage.setItem("FoundCardsNumber", JSON.stringify(results.length));
       localStorage.setItem(
         "SavedShortsSearch",
-        JSON.stringify(results.filter((movie) => movie.duration < 40))
+        JSON.stringify(
+          results.filter((movie) => movie.duration <= SHORT_MOVIES_DURATION)
+        )
       );
     }
   }
 
   function filterMoviesByDuration() {
     if (isShort) {
-      const shortMovies = allFoundMovies.filter((movie) => movie.duration < 40);
+      const shortMovies = allFoundMovies.filter(
+        (movie) => movie.duration <= SHORT_MOVIES_DURATION
+      );
       if (shortMovies.length === 0) {
         setFilteredMovies([]);
         setNothingFound(true);
       } else {
         setNothingFound(false);
+        setFilteredMoviesNumber(shortMovies.length);
         setFilteredMovies(shortMovies.slice(0, cardNumber));
-
         if (shortMovies.length > cardNumber) {
           setIsButtonVisible(true);
-          
-          if (shortMovies.length <= allCardsNumber) {
+          if (filteredMovies.length === filteredMoviesNumber) {
             setIsButtonVisible(false);
           }
+        } else {
+          setIsButtonVisible(false);
         }
       }
       localStorage.setItem("SavedShortsSearch", JSON.stringify(shortMovies));
@@ -198,6 +219,8 @@ function Movies({ onLikeClick, savedMovies }) {
         setFoundMovies(allFoundMovies.slice(0, cardNumber));
         if (allFoundMovies.length > cardNumber) {
           setIsButtonVisible(true);
+        } else {
+          setIsButtonVisible(false);
         }
       }
     }
@@ -207,11 +230,13 @@ function Movies({ onLikeClick, savedMovies }) {
   function handleLoadMoreButtonClick() {
     let additionalCards;
     if (isScreenXLarge) {
-      additionalCards = 4;
+      additionalCards = CARDS_TO_ADD_ON_XLARGE_SCREEN;
     } else if (isScreenLarge) {
-      additionalCards = 3;
+      additionalCards = CARDS_TO_ADD_ON_LARGE_SCREEN;
+    } else if (isScreenMedium) {
+      additionalCards = CARDS_TO_ADD_ON_MEDIUM_SCREEN;
     } else {
-      additionalCards = 2;
+      additionalCards = CARDS_TO_ADD_ON_SMALL_SCREEN;
     }
     setCardNumber((prevState) => prevState + additionalCards);
   }
@@ -226,7 +251,7 @@ function Movies({ onLikeClick, savedMovies }) {
         onSubmit={handleSearch}
         errorMessage={errorMessage}
       />
-      {isSearched ? null : isLoading ? (
+      {!isSearched ? null : isLoading ? (
         <Preloader />
       ) : (
         <MoviesCardList

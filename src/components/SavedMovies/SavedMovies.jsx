@@ -2,6 +2,7 @@ import "./SavedMovies.css";
 import { useState, useEffect } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import { SHORT_MOVIES_DURATION } from "../../utils/constants";
 
 function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,9 +13,9 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
   const [isSearched, setIsSearched] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-
   useEffect(() => {
     filterMoviesByDuration();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isShort]);
 
   function handleCheckBoxClick(e) {
@@ -33,7 +34,7 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
       );
     });
     if (searchQuery === "") {
-      setErrorMessage("Введите ключевое слово для поиска");
+      setErrorMessage("Нужно ввести ключевое слово");
       setNothingFound(true);
       return;
     }
@@ -51,9 +52,13 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
     if (isShort) {
       let shortMovies;
       if (isSearched) {
-        shortMovies = foundMovies.filter((movie) => movie.duration < 40);
+        shortMovies = foundMovies.filter(
+          (movie) => movie.duration < SHORT_MOVIES_DURATION
+        );
       } else {
-        shortMovies = savedMovies.filter((movie) => movie.duration < 40);
+        shortMovies = savedMovies.filter(
+          (movie) => movie.duration < SHORT_MOVIES_DURATION
+        );
       }
       if (shortMovies.length === 0) {
         setFilteredMovies([]);
@@ -66,6 +71,17 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
       setNothingFound(false);
       setIsShort(false);
     }
+  }
+
+  function handleDeleteClick(movie) {
+    if (isSearched) {
+      setFoundMovies((state) =>
+        state.filter((item) => {
+          return item._id !== movie._id;
+        })
+      );
+    }
+    onDeleteClick(movie);
   }
 
   return (
@@ -89,7 +105,7 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
             ? filteredMovies
             : savedMovies
         }
-        onDeleteClick={onDeleteClick}
+        onDeleteClick={handleDeleteClick}
         savedMovies={savedMovies}
         nothingFound={nothingFound}
       />

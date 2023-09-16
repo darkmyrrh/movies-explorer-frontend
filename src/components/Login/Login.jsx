@@ -2,15 +2,21 @@ import "./Login.css";
 import { useFormWithValidation } from "../../hooks/useFormValidation";
 import AuthForm from "../AuthPage/AuthPage";
 import { Navigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 function Login({ onLogin, isLoading, loggedIn }) {
   const location = useLocation();
 
-  const { values, handleChange, errors, isValid,  } = useFormWithValidation();
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
+
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
     onLogin(values.email, values.password);
+    setIsInputDisabled(true);
+    setIsSubmitDisabled(true);
   }
 
   if (loggedIn) {
@@ -27,6 +33,7 @@ function Login({ onLogin, isLoading, loggedIn }) {
         page="/register"
         onSubmit={handleSubmit}
         isValid={isValid}
+        isSubmitDisabled={isSubmitDisabled}
       >
         <label htmlFor="email" className="auth-page__form-label">
           E-mail
@@ -42,6 +49,7 @@ function Login({ onLogin, isLoading, loggedIn }) {
             onChange={handleChange}
             pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$"
             required
+            disabled={isInputDisabled}
           />
           <span className="auth-page__error-text">{errors.email}</span>
         </label>

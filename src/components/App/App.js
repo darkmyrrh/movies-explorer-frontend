@@ -16,7 +16,7 @@ import InfoToolTip from "../InfoTooltip/InfoTooltip";
 import * as MainApi from "../../utils/MainApi";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false || JSON.parse(localStorage.getItem("LoggedIn")));
   const [savedMovies, setSavedMovies] = useState([]);
   const [currentUser, setСurrentUser] = useState({});
   const [renderUserUpdateLoading, setRenderUserUpdateLoading] = useState(false);
@@ -30,20 +30,17 @@ function App() {
 
   const navigate = useNavigate();
 
-  const handleTokenCheck = () => {
+   useEffect(() => {
     MainApi.checkToken()
       .then((res) => {
         if (res) {
           setLoggedIn(true);
+          JSON.stringify(localStorage.setItem("LoggedIn", true));
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-  useEffect(() => {
-    handleTokenCheck();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -71,6 +68,7 @@ function App() {
         setIsSuccessful(true);
         setLoggedIn(true);
         navigate("/movies", { replace: true });
+        JSON.stringify(localStorage.setItem("LoggedIn", true));
       })
       .catch((err) => {
         setInfoToolTipOpen(true);
@@ -92,6 +90,7 @@ function App() {
       .then(() => {
         setLoggedIn(true);
         navigate("/movies", { replace: true });
+        JSON.stringify(localStorage.setItem("LoggedIn", true));
       })
       .catch((err) => {
         console.log(err);
@@ -129,11 +128,7 @@ function App() {
     MainApi.signout()
       .then(() => {
         setLoggedIn(false);
-        localStorage.clear("SavedSearch");
-        localStorage.clear("SearchRequest");
-        localStorage.clear("SavedCheckboxState");
-        localStorage.clear("SavedShortsSearch");
-        localStorage.clear("InitialMoviesArray");
+        localStorage.clear();
         navigate("/", { replace: true });
       })
       .catch((err) => {

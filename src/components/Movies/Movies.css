@@ -24,6 +24,16 @@
   text-align: center;  
 }
 
+.movies__message {
+  margin: 25px auto 50px;
+  padding: 0;
+  font-size: 22px;
+  line-height: 121%;
+  font-weight: 400;
+  color: black;
+  text-align: center;
+}
+
 
 @media all and (max-width: 765px) {
   .movies__button {

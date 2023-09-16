@@ -1,7 +1,6 @@
 import "./AuthPage.css";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../images/logo.svg";
-
 function AuthForm({
   name,
   greetingText,
@@ -12,6 +11,7 @@ function AuthForm({
   linkText,
   isValid,
   onSubmit,
+  isSubmitDisabled
 }) {
   const location = useLocation();
   const submitButtonClassName = `auth-page__submit app__button ${
@@ -36,7 +36,7 @@ function AuthForm({
         <button
           type="submit"
           className={submitButtonClassName}
-          disabled={isValid ? false : true}
+          disabled={isValid || isSubmitDisabled ? false : true}
         >{`${buttonText}`}</button>
         <p className="auth-page__paragraph">
           {text}

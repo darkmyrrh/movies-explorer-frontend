@@ -81,6 +81,13 @@ function SavedMovies({ savedMoviesList, onDeleteClick, savedMovies }) {
         })
       );
     }
+    if (isShort) {
+      setFilteredMovies((state) =>
+        state.filter((item) => {
+          return item._id !== movie._id;
+        })
+      );
+    }
     onDeleteClick(movie);
   }
 

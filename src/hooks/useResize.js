@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import {
+  SCREEN_XLARGE,
   SCREEN_LARGE,
   SCREEN_MEDIUM,
   SCREEN_SMALL,
-} from "../components/utils/screenSizes";
+} from "../utils/constants";
 
 function useResize() {
   const [width, setWidth] = useState(window.innerWidth);
@@ -16,12 +17,14 @@ function useResize() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [width]);
 
   return {
+    width,
     isScreenSmall: width >= SCREEN_SMALL,
     isScreenMedium: width >= SCREEN_MEDIUM,
     isScreenLarge: width >= SCREEN_LARGE,
+    isScreenXLarge: width >= SCREEN_XLARGE,
   };
 }
 

@@ -1,43 +1,57 @@
 import "./Register.css";
-import { useState } from "react";
 import AuthForm from "../AuthPage/AuthPage";
+import { useFormWithValidation } from "../../hooks/useFormValidation";
+import { Navigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 
-function Register({ onRegister }) {
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-
-  const handleChange = () => {
-    setIsSubmitDisabled(false);
-  };
-  const handleSubmit = (e) => {
+function Register({ onRegister, isLoading, loggedIn }) {
+  const location = useLocation();
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
+  function handleSubmit(e) {
     e.preventDefault();
-    onRegister();
+    onRegister(values.name, values.email, values.password);
+    setIsInputDisabled(true);
     setIsSubmitDisabled(true);
-  };
+  }
+  if (loggedIn) {
+    return <Navigate to="/movies" state={{ from: location }} replace />;
+  }
+
   return (
     <main className="register">
       <AuthForm
         name="register"
         greetingText="Добро пожаловать!"
-        buttonText="Зарегистрироваться"
+        buttonText={isLoading ? "Регистрация..." : "Зарегистрироваться"}
         text="Уже зарегистрированы?"
         linkText="Войти"
         page="/login"
-        isDisabled={isSubmitDisabled}
         onSubmit={handleSubmit}
+        isValid={isValid}
+        errors={errors}
+        isSubmitDisabled={isSubmitDisabled}
       >
         <label htmlFor="name" className="auth-page__form-label">
           Имя
           <input
             type="text"
-            className="auth-page__form-input"
+            className={`auth-page__form-input  ${
+              errors.name && "auth-page__form-input_error"
+            }`}
             name="name"
             id="name"
             placeholder="Имя"
+            value={values.name || ""}
             onChange={handleChange}
-            value="name"
+            minLength="2"
+            maxLength="30"
+            pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
             required
+            disabled={isInputDisabled}
           />
-          <span className="auth-page__error-text"></span>
+          <span className="auth-page__error-text">{errors.name}</span>
         </label>
         <label htmlFor="email" className="auth-page__form-label">
           E-mail
@@ -46,12 +60,16 @@ function Register({ onRegister }) {
             name="email"
             id="email"
             placeholder="E-mail"
-            className="auth-page__form-input"
+            className={`auth-page__form-input  ${
+              errors.email && "auth-page__form-input_error"
+            }`}
+            value={values.email || ""}
             onChange={handleChange}
-            value="email"
+            pattern="^([^ ]+@[^ ]+\.[a-z]{2,6}|)$"
             required
+            disabled={isInputDisabled}
           />
-          <span className="auth-page__error-text"></span>
+          <span className="auth-page__error-text">{errors.email}</span>
         </label>
         <label htmlFor="password" className="auth-page__form-label">
           Пароль
@@ -59,13 +77,16 @@ function Register({ onRegister }) {
             type="password"
             name="password"
             id="password"
-            className="auth-page__form-input auth-page__form-input_error"
-            placeholder="**************"
+            className={`auth-page__form-input  ${
+              errors.password && "auth-page__form-input_error"
+            }`}
+            placeholder="Пароль"
+            value={values.password || ""}
             onChange={handleChange}
-            value="password"
             required
+            disabled={isInputDisabled}
           />
-          <span className="auth-page__error-text">Что-то пошло не так...</span>
+          <span className="auth-page__error-text">{errors.password}</span>
         </label>
       </AuthForm>
     </main>

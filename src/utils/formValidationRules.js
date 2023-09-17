@@ -2,7 +2,7 @@ export const validateForm = (name, value) => {
   if (name === "name") {
     const minLength = (length) => (length < 2 ? false : true);
     const maxLength = (length) => (length > 30 ? false : true);
-    const nameRegEx = /^([A-Za-z\-\s]{1,30})|([А-ЯЁа-яё\-\s]{1,30})$/;
+    const nameRegEx = /^([A-Za-z-А-ЯЁа-яё\-\s]{1,30})$/;
     if (!value) {
       return "Необходимо указать имя";
     } else if (!minLength(value.length)) {

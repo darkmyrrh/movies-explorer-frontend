@@ -3,11 +3,21 @@ Front-end для проекта Movies Explorer
 
 Данная работа является пользовательским интерфейсом моей дипломной работы Movies Explorer в рамках курса "Веб-разработчик" от [Яндекс Практикум](https://practicum.yandex.ru/).
 
+Проект выполнен на React. Задействованы следующие технологии верстки:
 
-Репозиторий: [https://github.com/darkmyrrh/movies-explorer-frontend]
+- Flex
+- Grid
+- Анимации
+- Трансформации
+- Адаптивная верстка
 
-Ссылка на готовый проект: [https://movies-explorer.myrrh.ru/]
+Функционал:
+- Регистрация, авторизация и обновление данных пользователя
+- Поиск фильмов
+- Фильтрация по длительности
+- Добавление фильмов в избранное пользователя и удаление из него
+- Валидация форм на стороне клиента
 
-ссылка на пулл-реквест: [https://github.com/darkmyrrh/movies-explorer-frontend/pull/2]
+Репозиторий: [https://github.com/darkmyrrh/movies-explorer-frontend](https://github.com/darkmyrrh/movies-explorer-frontend)
 
-В качестве макета выбран [Light-1](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?type=design&node-id=891-3857&mode=design)
+Ссылка на готовый проект: [https://movies-explorer.myrrh.ru/](https://movies-explorer.myrrh.ru/)
